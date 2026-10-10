@@ -1,0 +1,94 @@
+# Dependencies
+node_modules/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Build outputs
+dist/
+build/
+.wrangler/
+.mf/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# PM2
+.pm2/
+pids/
+logs/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.dev.vars
+.dev.vars.*
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+*.sqlite
+*.sqlite3
+*.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Backup files
+*.backup
+*.bak
+*.tar.gz
+*.zip
+
+# Testing
+coverage/
+.nyc_output
+.grunt
+bower_components
+
+# Cache
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.vuepress/dist
+.docusaurus
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
+.vscode-test
+.yarn-integrity
+
+# Misc
+core
+core.*
+*.local
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

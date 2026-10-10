@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Meta Pixel Test</title>
+    
+    <!-- Meta Pixel Code - EXACT Facebook Version -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    console.log('🔍 PIXEL TEST: fbq function defined:', typeof fbq);
+    
+    fbq('init', '1385864342964404');
+    fbq('track', 'PageView');
+    
+    console.log('🔍 PIXEL TEST: PageView event sent');
+    
+    // Test after 3 seconds
+    setTimeout(() => {
+        console.log('🔍 PIXEL TEST: Testing after delay...');
+        console.log('🔍 PIXEL TEST: fbq type:', typeof fbq);
+        
+        if (typeof fbq === 'function') {
+            fbq('track', 'Lead', {content_name: 'Test Lead'});
+            console.log('🔍 PIXEL TEST: Lead event sent successfully');
+        } else {
+            console.log('❌ PIXEL TEST: fbq is not a function!');
+        }
+    }, 3000);
+    </script>
+    
+    <!-- Facebook Domain Verification -->
+    <meta name="facebook-domain-verification" content="yhxmv53c9u3hwkeyylq4kw07qvi249" />
+</head>
+<body>
+    <h1>Simple Meta Pixel Test</h1>
+    <p>Check console for Meta Pixel debug messages.</p>
+    
+    <button onclick="testPixel()">Manual Test</button>
+    
+    <script>
+        function testPixel() {
+            console.log('🧪 Manual test: fbq type:', typeof fbq);
+            if (typeof fbq === 'function') {
+                fbq('track', 'Purchase', {value: 997, currency: 'INR'});
+                console.log('🧪 Manual Purchase event sent');
+            } else {
+                console.log('❌ Manual test: fbq not available');
+            }
+        }
+        
+        console.log('🔍 PIXEL TEST: DOM loaded, fbq type:', typeof fbq);
+    </script>
+</body>
+</html>

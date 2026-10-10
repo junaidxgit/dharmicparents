@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-090XHEWYX4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-090XHEWYX4');
+    </script>
+    
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1385864342964404');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none" 
+           src="https://www.facebook.com/tr?id=1385864342964404&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Meta Pixel Code -->
+    
+    <!-- Facebook Domain Verification -->
+    <meta name="facebook-domain-verification" content="yhxmv53c9u3hwkeyylq4kw07qvi249" />
+    
+    <title>Test Community Addon Checkbox</title>
+    <link href="/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="p-8">
+    <h1 class="text-2xl font-bold mb-4">🔧 Testing Community Addon Functionality</h1>
+    
+    <div class="border-2 border-gray-300 p-6 rounded-xl mb-6">
+        <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" id="community-addon" onchange="updateTotal()" 
+                   class="w-5 h-5 text-orange-600 border-2 border-orange-300 rounded">
+            <span class="text-lg font-semibold">Add Private Dharmic Father's Community (+₹1,200/month)</span>
+        </label>
+    </div>
+    
+    <div class="bg-gray-100 p-6 rounded-xl mb-6">
+        <div class="flex justify-between items-center mb-4">
+            <span class="text-xl font-semibold">Total Investment:</span>
+            <span id="total-amount" class="text-3xl font-bold text-orange-600">₹799</span>
+        </div>
+        <div id="billing-note" class="text-center text-gray-600 font-medium py-2 bg-green-50 rounded-lg">
+            One-time payment • Instant digital access • 60-day guarantee
+        </div>
+    </div>
+    
+    <button type="button" id="pay-button" class="bg-orange-600 text-white py-4 px-6 text-lg font-bold rounded-xl">
+        Secure Checkout - Pay <span id="button-amount">₹799</span>
+    </button>
+    
+    <div id="debug-info" class="mt-6 p-4 bg-gray-50 rounded-lg">
+        <h3 class="font-bold mb-2">Debug Information:</h3>
+        <div id="debug-log"></div>
+    </div>
+
+    <script>
+        function updateTotal() {
+            console.log('=== UpdateTotal Function Called ===');
+            
+            const checkbox = document.getElementById('community-addon');
+            const totalAmount = document.getElementById('total-amount');
+            const buttonAmount = document.getElementById('button-amount');
+            const billingNote = document.getElementById('billing-note');
+            const payButton = document.getElementById('pay-button');
+            const debugLog = document.getElementById('debug-log');
+            
+            // Log to both console and page
+            function addLog(message) {
+                console.log(message);
+                debugLog.innerHTML += '<div>' + message + '</div>';
+            }
+            
+            debugLog.innerHTML = ''; // Clear previous logs
+            addLog('UpdateTotal function called at ' + new Date().toLocaleTimeString());
+            
+            addLog('Elements found: ' + JSON.stringify({
+                checkbox: !!checkbox,
+                totalAmount: !!totalAmount,
+                buttonAmount: !!buttonAmount,
+                billingNote: !!billingNote,
+                payButton: !!payButton
+            }));
+            
+            if (!checkbox) {
+                addLog('❌ ERROR: Checkbox not found!');
+                return;
+            }
+            
+            const isChecked = checkbox.checked;
+            addLog('Checkbox checked: ' + isChecked);
+            
+            if (isChecked) {
+                addLog('Setting to premium pricing...');
+                // Premium pricing
+                if (totalAmount) {
+                    totalAmount.textContent = '₹1,999';
+                    addLog('✅ Total amount updated to ₹1,999');
+                }
+                
+                if (billingNote) {
+                    billingNote.innerHTML = 'Today: ₹799 (guide) + ₹1,200 (community) • ₹1,200/month recurring';
+                    addLog('✅ Billing note updated');
+                }
+                
+                if (payButton) {
+                    payButton.innerHTML = 'Secure Checkout - Pay ₹1,999';
+                    addLog('✅ Button updated to ₹1,999');
+                }
+            } else {
+                addLog('Setting to basic pricing...');
+                // Basic pricing
+                if (totalAmount) {
+                    totalAmount.textContent = '₹799';
+                    addLog('✅ Total amount updated to ₹799');
+                }
+                
+                if (billingNote) {
+                    billingNote.textContent = 'One-time payment • Instant digital access • 60-day guarantee';
+                    addLog('✅ Billing note updated');
+                }
+                
+                if (payButton) {
+                    payButton.innerHTML = 'Secure Checkout - Pay ₹799';
+                    addLog('✅ Button updated to ₹799');
+                }
+            }
+            addLog('=== UpdateTotal Complete ===');
+        }
+        
+        // Test on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, testing checkbox...');
+            
+            // Add click listener for manual testing
+            document.getElementById('community-addon').addEventListener('click', function() {
+                setTimeout(updateTotal, 10); // Small delay to ensure checked state is updated
+            });
+        });
+    </script>
+</body>
+</html>

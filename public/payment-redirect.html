@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing Payment - Dharmic Parents</title>
+    
+    <!-- Fonts and Libraries -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(to bottom, #FFF8DC 0%, #FFE4B5 50%, #FFDAB9 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .dharmic-pattern {
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 107, 53, 0.03) 10px, rgba(255, 107, 53, 0.03) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212, 175, 55, 0.03) 10px, rgba(212, 175, 55, 0.03) 20px);
+        }
+        
+        .dharmic-text {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #d32f2f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .loader {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .processing-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border: 3px solid #D4AF37;
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+    </style>
+</head>
+<body class="dharmic-pattern">
+    <div class="processing-card rounded-3xl p-8 sm:p-12 max-w-md mx-4 text-center">
+        <div class="mb-6">
+            <i class="fas fa-spinner loader text-6xl dharmic-text"></i>
+        </div>
+        
+        <h1 class="text-2xl sm:text-3xl font-bold dharmic-text mb-4">
+            Verifying Payment Status
+        </h1>
+        
+        <p class="text-gray-600 text-base sm:text-lg mb-6">
+            Please wait while we confirm your payment...
+        </p>
+        
+        <div id="status-message" class="text-sm text-gray-500">
+            Checking payment status...
+        </div>
+    </div>
+
+    <script>
+        // Get transaction ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const txnId = urlParams.get('txn_id');
+        const statusMessage = document.getElementById('status-message');
+        
+        console.log('🔍 Payment redirect page loaded');
+        console.log('📋 Transaction ID:', txnId);
+        
+        if (!txnId) {
+            console.error('❌ No transaction ID found');
+            statusMessage.textContent = 'No transaction ID found. Redirecting...';
+            setTimeout(() => {
+                window.location.href = '/checkout.html';
+            }, 2000);
+        } else {
+            // Check payment status with PhonePe
+            checkPaymentStatus(txnId, 0);
+        }
+
+        const MAX_RETRIES = 15; // Max 15 attempts = ~30 seconds of polling
+
+        async function checkPaymentStatus(merchantOrderId, retryCount) {
+            try {
+                console.log('🔍 Checking payment status for:', merchantOrderId, '(attempt', retryCount + 1, ')');
+                statusMessage.textContent = 'Verifying your payment...';
+                
+                const response = await fetch(`/api/phonepe/status/${merchantOrderId}`);
+                const result = await response.json();
+                
+                console.log('📥 Payment status response:', result);
+                
+                if (result.success) {
+                    // State is at result.state (top level)
+                    const paymentState = result.state || result.data?.state;
+                    const paymentData = result.data?.data || result.data || {};
+                    
+                    console.log('💳 Payment state:', paymentState);
+                    console.log('💰 Payment data:', paymentData);
+                    console.log('📦 Full result:', JSON.stringify(result, null, 2));
+                    
+                    // Get transaction details from sessionStorage
+                    const txnDetails = JSON.parse(sessionStorage.getItem('phonepe_transaction') || '{}');
+                    
+                    // PhonePe returns various success states: COMPLETED, SUCCESS, PAID
+                    const isSuccess = paymentState === 'COMPLETED' || 
+                                     paymentState === 'SUCCESS' || 
+                                     paymentState === 'PAID' ||
+                                     paymentState === 'PAYMENT_SUCCESS';
+                    
+                    if (isSuccess) {
+                        // Payment successful
+                        console.log('✅ Payment completed successfully with state:', paymentState);
+                        statusMessage.textContent = 'Payment successful! Sending confirmation email...';
+                        
+                        // Track successful payment
+                        if (typeof fbq !== 'undefined') {
+                            fbq('track', 'Purchase', {
+                                value: txnDetails.amount || 0,
+                                currency: 'INR',
+                                transaction_id: merchantOrderId
+                            });
+                        }
+                        
+                        if (typeof gtag !== 'undefined') {
+                            gtag('event', 'purchase', {
+                                transaction_id: merchantOrderId,
+                                value: txnDetails.amount || 0,
+                                currency: 'INR'
+                            });
+                        }
+                        
+                        // Record purchase in database and send email
+                        try {
+                            console.log('📧 Recording purchase and sending email...');
+                            const purchaseResponse = await fetch('/api/purchases', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    name: txnDetails.name || 'Customer',
+                                    email: txnDetails.email || '',
+                                    phone: txnDetails.phone || '',
+                                    amount_paid: txnDetails.amount || 0,
+                                    has_community_addon: txnDetails.has_community_addon || false,
+                                    payment_id: paymentData.transactionId || merchantOrderId,
+                                    payment_status: 'completed',
+                                    payment_method: paymentData.paymentInstrument?.type || 'phonepe',
+                                    product_type: 'transformation_guide'
+                                })
+                            });
+                            
+                            const purchaseResult = await purchaseResponse.json();
+                            console.log('✅ Purchase recorded:', purchaseResult);
+                            
+                            if (purchaseResult.email_queued) {
+                                console.log('📧 Email queued successfully');
+                                statusMessage.textContent = 'Payment successful! Email sent. Redirecting...';
+                            }
+                        } catch (emailError) {
+                            console.error('❌ Error recording purchase:', emailError);
+                            // Continue to success page even if email fails
+                        }
+                        
+                        // Redirect to success page
+                        setTimeout(() => {
+                            window.location.href = `/success.html?txn_id=${merchantOrderId}&payment_id=${paymentData.transactionId || merchantOrderId}&amount=${txnDetails.amount || 0}&community=${txnDetails.has_community_addon || false}`;
+                        }, 2000);
+                        
+                    } else if (paymentState === 'PENDING') {
+                        // Payment still pending - keep checking (with retry limit)
+                        if (retryCount >= MAX_RETRIES) {
+                            console.warn('⚠️ Max retries reached. Redirecting to failure page.');
+                            statusMessage.textContent = 'Payment verification timed out. Please contact support.';
+                            setTimeout(() => {
+                                window.location.href = `/payment-failed.html?txn_id=${merchantOrderId}&reason=TIMEOUT`;
+                            }, 2000);
+                            return;
+                        }
+                        console.log('⏳ Payment pending, checking again... (attempt', retryCount + 1, 'of', MAX_RETRIES, ')');
+                        statusMessage.textContent = `Payment pending. Verifying... (${retryCount + 1}/${MAX_RETRIES})`;
+
+                        // Retry after 2 seconds
+                        setTimeout(() => {
+                            checkPaymentStatus(merchantOrderId, retryCount + 1);
+                        }, 2000);
+                        
+                    } else {
+                        // Payment failed or cancelled
+                        console.log('❌ Payment failed or cancelled. State:', paymentState);
+                        console.log('📊 Full payment data:', JSON.stringify(result, null, 2));
+                        statusMessage.textContent = `Payment status: ${paymentState}. Redirecting...`;
+                        
+                        // Redirect to failure page
+                        setTimeout(() => {
+                            window.location.href = `/payment-failed.html?txn_id=${merchantOrderId}&reason=${paymentState}`;
+                        }, 1500);
+                    }
+                } else {
+                    // Error checking status
+                    console.error('❌ Error checking payment status:', result);
+                    statusMessage.textContent = 'Unable to verify payment. Redirecting...';
+                    
+                    // Redirect to checkout after error
+                    setTimeout(() => {
+                        window.location.href = '/checkout.html?error=status_check_failed';
+                    }, 3000);
+                }
+            } catch (error) {
+                console.error('❌ Error in checkPaymentStatus:', error);
+                if (retryCount >= MAX_RETRIES) {
+                    statusMessage.textContent = 'Connection error. Please contact support.';
+                    setTimeout(() => {
+                        window.location.href = `/payment-failed.html?txn_id=${merchantOrderId}&reason=ERROR`;
+                    }, 3000);
+                    return;
+                }
+                statusMessage.textContent = 'Connection error. Retrying...';
+                setTimeout(() => {
+                    checkPaymentStatus(merchantOrderId, retryCount + 1);
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>

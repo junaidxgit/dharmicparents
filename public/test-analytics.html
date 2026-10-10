@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-090XHEWYX4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-090XHEWYX4');
+      
+      // Add debug logging
+      console.log('🔍 GA4 Debugging: gtag function loaded:', typeof gtag);
+      console.log('🔍 GA4 Debugging: dataLayer:', window.dataLayer);
+      
+      // Send a test event
+      setTimeout(() => {
+        gtag('event', 'page_view', {
+          page_title: 'Test Analytics Page',
+          page_location: window.location.href
+        });
+        console.log('🔍 GA4 Debugging: Test event sent');
+      }, 2000);
+    </script>
+</head>
+<body>
+    <h1>Google Analytics Test Page</h1>
+    <p>This page tests GA4 tracking with ID: G-090XHEWYX4</p>
+    
+    <script>
+      // Log when page loads
+      console.log('🔍 GA4 Debugging: Page loaded');
+      
+      // Check if gtag is available after a delay
+      setTimeout(() => {
+        console.log('🔍 GA4 Debugging: gtag available after delay:', typeof gtag);
+      }, 3000);
+    </script>
+</body>
+</html>

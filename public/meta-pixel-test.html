@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meta Pixel Test - Dharmic Parents</title>
+    
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1385864342964404');
+      fbq('track', 'PageView');
+      
+      // Add debug logging
+      console.log('🔍 Meta Pixel Test: fbq function loaded:', typeof fbq);
+      console.log('🔍 Meta Pixel Test: _fbq available:', typeof window._fbq);
+      
+      // Test events after page loads
+      setTimeout(() => {
+        console.log('🔍 Meta Pixel Test: Sending test Lead event...');
+        fbq('track', 'Lead', {
+          content_name: 'Test Lead Event',
+          content_category: 'diagnostic',
+          value: 1,
+          currency: 'INR'
+        });
+        console.log('🔍 Meta Pixel Test: Lead event sent!');
+        
+        // Send custom event
+        console.log('🔍 Meta Pixel Test: Sending custom event...');
+        fbq('trackCustom', 'DiagnosticTest', {
+          test_type: 'pixel_verification',
+          pixel_id: '1385864342964404'
+        });
+        console.log('🔍 Meta Pixel Test: Custom event sent!');
+      }, 3000);
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none" 
+           src="https://www.facebook.com/tr?id=1385864342964404&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Meta Pixel Code -->
+    
+    <!-- Facebook Domain Verification -->
+    <meta name="facebook-domain-verification" content="yhxmv53c9u3hwkeyylq4kw07qvi249" />
+</head>
+<body style="font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto;">
+    <h1>📱 Meta Pixel Test Page</h1>
+    <h2>Dharmic Parents - Facebook Pixel Verification</h2>
+    
+    <div style="background: #f0f9ff; border: 1px solid #0284c7; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3>✅ What This Page Tests:</h3>
+        <ul>
+            <li><strong>Meta Pixel ID:</strong> 1385864342964404</li>
+            <li><strong>Script Loading:</strong> Loads fbq.js from Facebook servers</li>
+            <li><strong>PageView Event:</strong> Automatic page view tracking</li>
+            <li><strong>Lead Event:</strong> Test lead generation event after 3 seconds</li>
+            <li><strong>Custom Event:</strong> DiagnosticTest custom event</li>
+        </ul>
+    </div>
+    
+    <div style="background: #fef3c7; border: 1px solid #d97706; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3>🔍 How to Check if it's Working:</h3>
+        <ol>
+            <li><strong>Open Developer Tools</strong> (F12 or Right-click → Inspect)</li>
+            <li><strong>Go to Console tab</strong> - Look for "Meta Pixel Test" messages</li>
+            <li><strong>Go to Network tab</strong> - Look for requests to:
+                <ul>
+                    <li>connect.facebook.net/en_US/fbq.js</li>
+                    <li>facebook.com/tr (pixel events)</li>
+                </ul>
+            </li>
+            <li><strong>Use Facebook Pixel Helper:</strong> Install Chrome extension to see events</li>
+            <li><strong>Check Events Manager:</strong> Go to Facebook Business → Events Manager → Test Events</li>
+        </ol>
+    </div>
+    
+    <div style="background: #fef2f2; border: 1px solid #ef4444; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3>❌ If Nothing Shows Up:</h3>
+        <ul>
+            <li><strong>Ad Blocker:</strong> Disable ad blocker and refresh (Facebook scripts often blocked)</li>
+            <li><strong>Privacy Mode:</strong> Try incognito/private browsing</li>
+            <li><strong>Corporate Network:</strong> Try from personal device/network</li>
+            <li><strong>Browser Settings:</strong> Check if tracking/social media is disabled</li>
+            <li><strong>VPN/Location:</strong> Some VPNs block Facebook pixels</li>
+        </ul>
+    </div>
+
+    <div style="background: #f0fdf4; border: 1px solid #22c55e; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3>🎯 Business Events We Track:</h3>
+        <ul>
+            <li><strong>PageView:</strong> Every page visit</li>
+            <li><strong>ViewContent:</strong> Assessment progress</li>
+            <li><strong>Lead:</strong> Assessment started & completed</li>
+            <li><strong>CompleteRegistration:</strong> Email collected</li>
+            <li><strong>InitiateCheckout:</strong> Checkout page visit</li>
+            <li><strong>Purchase:</strong> Transformation guide bought</li>
+            <li><strong>Custom Events:</strong> QualifiedLead, HighValueLead, TransformationPurchase</li>
+        </ul>
+    </div>
+
+    <!-- Interactive Test Buttons -->
+    <div style="margin: 30px 0;">
+        <h3>🧪 Test Events Manually:</h3>
+        <button onclick="testViewContent()" style="background: #1d4ed8; color: white; padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer;">
+            Test ViewContent Event
+        </button>
+        <button onclick="testLead()" style="background: #059669; color: white; padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer;">
+            Test Lead Event
+        </button>
+        <button onclick="testCustomEvent()" style="background: #dc2626; color: white; padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer;">
+            Test Custom Event
+        </button>
+    </div>
+
+    <script>
+        console.log('🔍 Meta Pixel Test: DOM loaded');
+        
+        function testViewContent() {
+            if (typeof fbq !== 'undefined') {
+                console.log('🧪 Testing ViewContent event...');
+                fbq('track', 'ViewContent', {
+                    content_name: 'Manual Test Content',
+                    content_category: 'test',
+                    value: 1,
+                    currency: 'INR'
+                });
+                alert('ViewContent event sent! Check console and Network tab.');
+            } else {
+                alert('Meta Pixel not loaded! Check console for errors.');
+            }
+        }
+        
+        function testLead() {
+            if (typeof fbq !== 'undefined') {
+                console.log('🧪 Testing Lead event...');
+                fbq('track', 'Lead', {
+                    content_name: 'Manual Test Lead',
+                    content_category: 'test',
+                    value: 5,
+                    currency: 'INR'
+                });
+                alert('Lead event sent! Check console and Network tab.');
+            } else {
+                alert('Meta Pixel not loaded! Check console for errors.');
+            }
+        }
+        
+        function testCustomEvent() {
+            if (typeof fbq !== 'undefined') {
+                console.log('🧪 Testing Custom event...');
+                fbq('trackCustom', 'ManualTest', {
+                    test_type: 'button_click',
+                    timestamp: new Date().toISOString()
+                });
+                alert('Custom event sent! Check console and Network tab.');
+            } else {
+                alert('Meta Pixel not loaded! Check console for errors.');
+            }
+        }
+        
+        // Check after page loads
+        window.addEventListener('load', () => {
+            console.log('🔍 Meta Pixel Test: Window loaded');
+            console.log('🔍 Meta Pixel Test: fbq function type:', typeof fbq);
+            
+            setTimeout(() => {
+                console.log('🔍 Meta Pixel Test: Final check - fbq available:', typeof fbq !== 'undefined');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

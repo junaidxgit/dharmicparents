@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GA4 Direct Test - Dharmic Parents</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-090XHEWYX4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-090XHEWYX4', {
+        debug_mode: true
+      });
+      
+      console.log('🔍 GA4 Test: Script loaded, gtag type:', typeof gtag);
+      
+      // Test after 3 seconds
+      setTimeout(() => {
+        console.log('🔍 GA4 Test: Sending test event...');
+        gtag('event', 'test_page_view', {
+          custom_parameter: 'dharmic_parents_test'
+        });
+        console.log('🔍 GA4 Test: Event sent!');
+      }, 3000);
+    </script>
+</head>
+<body style="font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto;">
+    <h1>🔍 Google Analytics 4 Test Page</h1>
+    <h2>Dharmic Parents - GA4 Verification</h2>
+    
+    <div style="background: #f0f9ff; border: 1px solid #0284c7; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3>✅ What This Page Tests:</h3>
+        <ul>
+            <li><strong>Google Analytics ID:</strong> G-090XHEWYX4</li>
+            <li><strong>Script Loading:</strong> Loads gtag.js from Google servers</li>
+            <li><strong>Event Firing:</strong> Sends a test event after 3 seconds</li>
+            <li><strong>Debug Mode:</strong> Enhanced logging for troubleshooting</li>
+        </ul>
+    </div>
+    
+    <div style="background: #fef3c7; border: 1px solid #d97706; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3>🔍 How to Check if it's Working:</h3>
+        <ol>
+            <li><strong>Open Developer Tools</strong> (F12 or Right-click → Inspect)</li>
+            <li><strong>Go to Console tab</strong> - Look for "GA4 Test" messages</li>
+            <li><strong>Go to Network tab</strong> - Look for requests to:
+                <ul>
+                    <li>googletagmanager.com/gtag/js</li>
+                    <li>google-analytics.com/g/collect</li>
+                </ul>
+            </li>
+            <li><strong>Check Real-time reports</strong> in your GA4 dashboard</li>
+        </ol>
+    </div>
+    
+    <div style="background: #fef2f2; border: 1px solid #ef4444; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3>❌ If Nothing Shows Up:</h3>
+        <ul>
+            <li><strong>Ad Blocker:</strong> Disable ad blocker and refresh</li>
+            <li><strong>Privacy Mode:</strong> Try incognito/private browsing</li>
+            <li><strong>Corporate Network:</strong> Try from personal device/network</li>
+            <li><strong>Browser Settings:</strong> Check if analytics/tracking is disabled</li>
+        </ul>
+    </div>
+
+    <script>
+        console.log('🔍 GA4 Test: DOM loaded');
+        
+        // Check after page loads
+        window.addEventListener('load', () => {
+            console.log('🔍 GA4 Test: Window loaded');
+            console.log('🔍 GA4 Test: dataLayer contents:', window.dataLayer);
+        });
+    </script>
+</body>
+</html>

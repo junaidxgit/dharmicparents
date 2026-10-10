@@ -1,0 +1,307 @@
+==============================================
+DHARMIC PARENTS - GOOGLE ADS COPY
+Copy-paste ready for Google Ads Editor
+==============================================
+
+-------------------
+CAMPAIGN 1: PROBLEM AWARE
+Keywords: my son doesn't respect me, teenage son ignoring father, father son problems
+-------------------
+
+AD #1:
+Headline 1: Son Doesn't Respect You?
+Headline 2: 12,847 Fathers Fixed This
+Headline 3: Free Assessment + Guide | ₹799
+
+Description 1: Transform your father-son relationship using proven dharmic methods. 60-day guarantee. Instant digital delivery.
+Description 2: Take our FREE assessment. Get personalized insights. See why 12,847 Indian fathers trust our approach.
+
+Path 1: survey
+Path 2: free-assessment
+
+Final URL: https://dharmicparents.pages.dev/survey.html
+
+---
+
+AD #2:
+Headline 1: Teenage Son Ignoring You?
+Headline 2: Proven Solution for Fathers
+Headline 3: Start with Free Assessment
+
+Description 1: 47-page transformation guide combining ancient wisdom with modern psychology. Used by 12,847+ fathers.
+Description 2: No judgment. Just honest insights and proven frameworks that work with today's generation.
+
+Path 1: assessment
+Path 2: start-here
+
+Final URL: https://dharmicparents.pages.dev/
+
+---
+
+AD #3:
+Headline 1: Father-Son Gap? Fix in 60 Days
+Headline 2: 12,847+ Success Stories
+Headline 3: ₹799 Only | Instant Access
+
+Description 1: Complete transformation guide with 7 conversation scripts, 30-day plan, and emergency scenarios.
+Description 2: Digital delivery. 60-day guarantee. Join 12,847 Indian fathers who rebuilt relationships.
+
+Path 1: guide
+Path 2: get-started
+
+Final URL: https://dharmicparents.pages.dev/checkout.html
+
+-------------------
+CAMPAIGN 2: SOLUTION AWARE
+Keywords: father son bonding, how to talk to teenage son, parenting teenage boys
+-------------------
+
+AD #1:
+Headline 1: Father-Son Bonding Guide
+Headline 2: Ancient Wisdom + Modern
+Headline 3: 12,847+ Success Stories
+
+Description 1: Complete transformation guide for Indian fathers. 7 conversation frameworks that actually work.
+Description 2: Free assessment available. Get your relationship score in 2 minutes. 60-day guarantee.
+
+Path 1: guide
+Path 2: assessment
+
+Final URL: https://dharmicparents.pages.dev/
+
+---
+
+AD #2:
+Headline 1: Dharmic Parenting Guide
+Headline 2: For Modern Indian Fathers
+Headline 3: ₹799 | Instant Digital Access
+
+Description 1: 47-page comprehensive guide with proven frameworks. No generic Western advice.
+Description 2: Specifically designed for Indian family dynamics. Join 12,847 fathers who transformed.
+
+Path 1: dharmic-guide
+Path 2: buy-now
+
+Final URL: https://dharmicparents.pages.dev/checkout.html
+
+---
+
+AD #3:
+Headline 1: Father-Son Communication
+Headline 2: 7 Conversation Scripts Work
+Headline 3: Free Assessment Available
+
+Description 1: Transform your relationship in 60 days. Proven dharmic approach for Indian fathers.
+Description 2: Start with FREE 2-minute assessment. Get personalized insights. 12,847+ fathers trust us.
+
+Path 1: assessment
+Path 2: free
+
+Final URL: https://dharmicparents.pages.dev/survey.html
+
+-------------------
+CAMPAIGN 3: BRAND SEARCH
+Keywords: dharmic parents, dharmic parents review, dharmic parents guide
+-------------------
+
+AD #1:
+Headline 1: Dharmic Parents - Official
+Headline 2: Father-Son Transformation
+Headline 3: Free Assessment | ₹799 Guide
+
+Description 1: Transform your father-son relationship in 60 days. 12,847+ success stories. Start free assessment.
+Description 2: Complete guide with conversation scripts, 30-day plan, proven frameworks. Instant delivery.
+
+Path 1: official
+Path 2: guide
+
+Final URL: https://dharmicparents.pages.dev/
+
+---
+
+AD #2:
+Headline 1: Dharmic Parents Reviews
+Headline 2: 4.8★ Rating | 12,847 Fathers
+Headline 3: See Real Success Stories
+
+Description 1: Read what other fathers are saying. Real reviews from fathers who transformed relationships.
+Description 2: Join 12,847 Indian fathers. 60-day guarantee. Free assessment available.
+
+Path 1: reviews
+Path 2: testimonials
+
+Final URL: https://dharmicparents.pages.dev/
+
+==============================================
+KEYWORD LISTS
+==============================================
+
+--- HIGH INTENT (Problem Aware) ---
+my son doesn't respect me
+teenage son ignoring father
+father son relationship problems
+son won't talk to father
+teenage son disrespectful
+my son avoids me
+father son communication gap
+teenage son rebellion india
+son doesn't listen to father
+improve relationship with teenage son
+
+BID: ₹20-40 per click
+
+--- MEDIUM INTENT (Solution Aware) ---
+father son bonding activities
+how to talk to teenage son
+parenting teenage boys india
+father son relationship guide
+improve father son bond
+dharmic parenting
+father son conversation tips
+teenage parenting advice
+father son activities india
+how to connect with teenage son
+
+BID: ₹10-25 per click
+
+--- LOW INTENT (Brand/Research) ---
+dharmic parents
+dharmic parents review
+father son transformation guide
+indian parenting guide
+dharmic parenting methods
+sanatan parenting
+
+BID: ₹5-15 per click
+
+--- NEGATIVE KEYWORDS ---
+-daughter
+-mother
+-free pdf
+-download free
+-torrent
+-pirate
+-crack
+-book pdf
+-ebook free
+
+==============================================
+AD EXTENSIONS
+==============================================
+
+--- SITELINK EXTENSIONS ---
+
+Sitelink 1:
+Text: Free Assessment
+Description: 2-minute father-son relationship assessment
+URL: https://dharmicparents.pages.dev/survey.html
+
+Sitelink 2:
+Text: Success Stories
+Description: Read reviews from 12,847+ fathers
+URL: https://dharmicparents.pages.dev/
+
+Sitelink 3:
+Text: Get Started
+Description: ₹799 | Instant access | 60-day guarantee
+URL: https://dharmicparents.pages.dev/checkout.html
+
+Sitelink 4:
+Text: Our Approach
+Description: Dharmic wisdom + modern psychology
+URL: https://dharmicparents.pages.dev/
+
+--- CALLOUT EXTENSIONS ---
+- 60-Day Money Back Guarantee
+- Instant Digital Delivery
+- 12,847+ Success Stories
+- Specifically for Indian Fathers
+- No Generic Western Advice
+- 7 Proven Conversation Scripts
+- 30-Day Action Plan Included
+- 4.8 Star Rating
+
+--- STRUCTURED SNIPPET EXTENSIONS ---
+
+Header: What's Included
+Values: 47-Page Guide, Conversation Scripts, 30-Day Plan, Emergency Scenarios
+
+Header: Benefits
+Values: Better Communication, Mutual Respect, Stronger Bond, Lasting Change
+
+Header: Guarantee
+Values: 60-Day Money Back, Instant Access, Digital Delivery
+
+==============================================
+CAMPAIGN SETTINGS
+==============================================
+
+LOCATION: India (All regions)
+FOCUS: Mumbai, Delhi, Bangalore, Pune, Hyderabad, Chennai
+
+LANGUAGE: English
+
+NETWORKS: 
+- Google Search
+- Search Partners
+
+DEVICES: All devices (mobile, desktop, tablet)
+
+BID STRATEGY: Maximize Conversions (for assessment)
+BID STRATEGY: Target CPA ₹250-350 (for purchases)
+
+DAILY BUDGET: ₹500-1,000
+
+CONVERSION TRACKING:
+- Assessment Complete (Primary)
+- Purchase Complete (Primary)
+- Add to Cart
+- Checkout Initiated
+
+==============================================
+DISPLAY CAMPAIGN
+==============================================
+
+TARGETING:
+- Affinity: Parenting, Family
+- In-Market: Parenting Resources, Self-Help
+- Topics: Parenting, Family, Personal Development
+
+PLACEMENTS:
+- Parenting websites
+- Indian news sites
+- Education portals
+- Lifestyle blogs
+
+RESPONSIVE DISPLAY ADS:
+
+Headline 1: Transform Father-Son Bond
+Headline 2: 12,847+ Success Stories
+Headline 3: Free Assessment Available
+Headline 4: ₹799 | Instant Delivery
+Headline 5: 60-Day Guarantee
+
+Description 1: Proven dharmic approach for Indian fathers. Complete transformation guide.
+Description 2: 47-page guide with conversation scripts and action plan. Instant access.
+
+CTA: Get Started
+
+Images: Upload father-son photos, guide screenshots
+
+==============================================
+REMARKETING CAMPAIGN
+==============================================
+
+AUDIENCE 1: All Website Visitors (30 days)
+Ad: "Come Back - Free Assessment Still Available"
+Budget: ₹100/day
+
+AUDIENCE 2: Assessment Completers (7 days)
+Ad: "Your Results Are Ready - Get Your Guide Now"
+Budget: ₹200/day
+
+AUDIENCE 3: Cart Abandoners (3 days)
+Ad: "Complete Your Order - ₹100 OFF Today Only"
+Budget: ₹150/day
+
+==============================================

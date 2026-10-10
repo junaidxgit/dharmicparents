@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meta Pixel Debug - Advanced Testing</title>
+    
+    <!-- Enhanced Meta Pixel Code with Error Handling -->
+    <script>
+      console.log('🔍 Starting Meta Pixel load test...');
+      
+      // Check if script loads successfully
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      
+      // Add load success handler
+      t.onload = function() {
+        console.log('✅ Facebook script loaded successfully!');
+        console.log('🔍 fbq type after load:', typeof fbq);
+      };
+      
+      // Add error handler
+      t.onerror = function() {
+        console.log('❌ Facebook script FAILED to load');
+        console.log('❌ This means Facebook servers are blocking the request');
+        
+        // Create a manual fbq function for testing
+        window.fbq = function() {
+          console.log('🔧 Manual fbq called with:', arguments);
+        };
+      };
+      
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      
+      // Initialize pixel (will work even if script fails)
+      setTimeout(() => {
+        console.log('🔍 Initializing pixel...');
+        fbq('init', '1385864342964404');
+        fbq('track', 'PageView');
+        console.log('🔍 Initial events sent');
+      }, 1000);
+    </script>
+    
+    <!-- Facebook Domain Verification -->
+    <meta name="facebook-domain-verification" content="yhxmv53c9u3hwkeyylq4kw07qvi249" />
+</head>
+<body style="font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto;">
+    <h1>🔍 Meta Pixel Advanced Debug</h1>
+    
+    <div style="background: #f0f9ff; border: 1px solid #0284c7; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3>🧪 Debug Information:</h3>
+        <ul>
+            <li><strong>Check Console:</strong> Look for load success/error messages</li>
+            <li><strong>Network Tab:</strong> Look for connect.facebook.net requests</li>
+            <li><strong>Manual Test:</strong> Use buttons below to test pixel manually</li>
+        </ul>
+    </div>
+    
+    <div style="background: #fef3c7; border: 1px solid #d97706; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3>🔍 Environment Detection:</h3>
+        <p><strong>User Agent:</strong> <span id="userAgent"></span></p>
+        <p><strong>Location:</strong> <span id="location"></span></p>
+        <p><strong>Referrer:</strong> <span id="referrer"></span></p>
+        <p><strong>fbq Type:</strong> <span id="fbqType"></span></p>
+    </div>
+
+    <!-- Test Buttons -->
+    <div style="margin: 30px 0;">
+        <h3>🧪 Manual Pixel Tests:</h3>
+        <button onclick="testPageView()" style="background: #1d4ed8; color: white; padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer;">
+            Test PageView
+        </button>
+        <button onclick="testLead()" style="background: #059669; color: white; padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer;">
+            Test Lead Event
+        </button>
+        <button onclick="testPurchase()" style="background: #dc2626; color: white; padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer;">
+            Test Purchase Event
+        </button>
+        <button onclick="sendToServer()" style="background: #7c3aed; color: white; padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer;">
+            Send Server-Side Event
+        </button>
+    </div>
+
+    <script>
+        // Update debug info
+        document.getElementById('userAgent').textContent = navigator.userAgent;
+        document.getElementById('location').textContent = window.location.href;
+        document.getElementById('referrer').textContent = document.referrer || 'None';
+        
+        setTimeout(() => {
+            document.getElementById('fbqType').textContent = typeof fbq;
+        }, 2000);
+        
+        function testPageView() {
+            console.log('🧪 Manual PageView test...');
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'PageView');
+                alert('PageView event sent! Check console for details.');
+            } else {
+                alert('fbq not loaded! Check console for errors.');
+            }
+        }
+        
+        function testLead() {
+            console.log('🧪 Manual Lead test...');
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', {
+                    content_name: 'Manual Debug Test',
+                    content_category: 'debug',
+                    value: 1,
+                    currency: 'INR'
+                });
+                alert('Lead event sent! Check console and Network tab.');
+            } else {
+                alert('fbq not loaded! Check console for errors.');
+            }
+        }
+        
+        function testPurchase() {
+            console.log('🧪 Manual Purchase test...');
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Purchase', {
+                    content_name: 'Debug Test Purchase',
+                    value: 997,
+                    currency: 'INR'
+                });
+                alert('Purchase event sent! This should show in Events Manager.');
+            } else {
+                alert('fbq not loaded! Check console for errors.');
+            }
+        }
+        
+        function sendToServer() {
+            console.log('🧪 Server-side event simulation...');
+            
+            // Simulate server-side event using Conversions API
+            const eventData = {
+                pixel_id: '1385864342964404',
+                event_name: 'Purchase',
+                event_time: Math.floor(Date.now() / 1000),
+                custom_data: {
+                    currency: 'INR',
+                    value: 997,
+                    content_name: 'Server-side Test'
+                },
+                user_data: {
+                    client_ip_address: 'auto',
+                    client_user_agent: navigator.userAgent
+                }
+            };
+            
+            console.log('🔧 Server-side event data:', eventData);
+            alert('Server-side event logged to console. In production, this would be sent via Conversions API.');
+        }
+        
+        // Continuous monitoring
+        setInterval(() => {
+            const fbqStatus = typeof fbq;
+            if (fbqStatus !== 'undefined' && !window.fbqLoaded) {
+                console.log('🎉 fbq finally loaded! Type:', fbqStatus);
+                window.fbqLoaded = true;
+                document.getElementById('fbqType').textContent = fbqStatus;
+                document.getElementById('fbqType').style.color = 'green';
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

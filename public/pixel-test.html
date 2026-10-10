@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Pixel Test - Dharmic Parents</title>
+    
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1385864342964404');
+      fbq('track', 'PageView');
+      
+      console.log('✅ Meta Pixel Code Loaded');
+      console.log('✅ Pixel ID: 1385864342964404');
+      console.log('✅ PageView Event Fired');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none" 
+           src="https://www.facebook.com/tr?id=1385864342964404&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Meta Pixel Code -->
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .success {
+            color: #22c55e;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .info {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .code {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .test-result {
+            background: #f0fdf4;
+            border: 2px solid #22c55e;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            display: none;
+        }
+        .warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1 class="success">✅ Meta Pixel Test Page</h1>
+        
+        <div class="info">
+            <h3>🔍 Pixel Information</h3>
+            <p><strong>Pixel ID:</strong> 1385864342964404</p>
+            <p><strong>Status:</strong> <span id="pixel-status">Checking...</span></p>
+            <p><strong>Events Fired:</strong> <span id="events-fired">0</span></p>
+        </div>
+        
+        <h3>📊 Test Pixel Events</h3>
+        <p>Click the buttons below to test different Pixel events:</p>
+        
+        <button onclick="testPageView()">Test PageView Event</button>
+        <button onclick="testViewContent()">Test ViewContent Event</button>
+        <button onclick="testLead()">Test Lead Event</button>
+        <button onclick="testPurchase()">Test Purchase Event</button>
+        
+        <div id="test-result" class="test-result">
+            <h4>✅ Event Fired Successfully!</h4>
+            <p id="result-text"></p>
+        </div>
+        
+        <div class="warning">
+            <h3>⚠️ Troubleshooting</h3>
+            <p><strong>If Pixel Helper shows "No Pixel Found":</strong></p>
+            <ol>
+                <li><strong>Disable Ad Blockers</strong> (uBlock, AdBlock, etc.)</li>
+                <li><strong>Check Browser Console</strong> for errors (F12 → Console)</li>
+                <li><strong>Refresh the page</strong> (hard refresh: Ctrl+Shift+R)</li>
+                <li><strong>Try incognito mode</strong> (no extensions)</li>
+                <li><strong>Check if fbq is defined:</strong> Type <code>typeof fbq</code> in console</li>
+            </ol>
+        </div>
+        
+        <div class="info">
+            <h3>🧪 How to Verify Pixel</h3>
+            <ol>
+                <li><strong>Install Meta Pixel Helper</strong>
+                    <br><a href="https://chrome.google.com/webstore/detail/meta-pixel-helper/fdgfkebogiimcoedlicjlajpkdmockpc" target="_blank">Chrome Extension Link</a>
+                </li>
+                <li><strong>Visit this page</strong> with Pixel Helper installed</li>
+                <li><strong>Click the extension icon</strong> (top right)</li>
+                <li><strong>Should show:</strong> Pixel 1385864342964404 found</li>
+            </ol>
+        </div>
+        
+        <div class="code">
+            <strong>Console Output:</strong>
+            <div id="console-output">Waiting for events...</div>
+        </div>
+        
+        <div class="info">
+            <h3>🔗 Test URLs</h3>
+            <p><strong>Homepage:</strong> <a href="https://dharmicparents.com" target="_blank">dharmicparents.com</a></p>
+            <p><strong>This Test Page:</strong> <a href="https://dharmicparents.com/pixel-test.html" target="_blank">dharmicparents.com/pixel-test.html</a></p>
+            <p><strong>Events Manager:</strong> <a href="https://business.facebook.com/events_manager" target="_blank">View Pixel Events</a></p>
+        </div>
+    </div>
+    
+    <script>
+        // Check if Pixel loaded
+        setTimeout(function() {
+            const pixelStatus = document.getElementById('pixel-status');
+            const consoleOutput = document.getElementById('console-output');
+            
+            if (typeof fbq !== 'undefined') {
+                pixelStatus.innerHTML = '<strong style="color: #22c55e;">✅ ACTIVE</strong>';
+                consoleOutput.innerHTML = '✅ Meta Pixel (1385864342964404) loaded successfully!<br>✅ PageView event fired automatically';
+            } else {
+                pixelStatus.innerHTML = '<strong style="color: #ef4444;">❌ NOT FOUND</strong>';
+                consoleOutput.innerHTML = '❌ Pixel not found. Check for ad blockers or console errors.';
+            }
+        }, 1000);
+        
+        let eventCount = 0;
+        
+        function updateEventCount() {
+            eventCount++;
+            document.getElementById('events-fired').textContent = eventCount;
+        }
+        
+        function showResult(message) {
+            const result = document.getElementById('test-result');
+            const resultText = document.getElementById('result-text');
+            resultText.textContent = message;
+            result.style.display = 'block';
+            
+            setTimeout(() => {
+                result.style.display = 'none';
+            }, 3000);
+        }
+        
+        function testPageView() {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'PageView');
+                updateEventCount();
+                showResult('PageView event sent to Meta Pixel!');
+                console.log('✅ PageView event fired');
+            } else {
+                alert('❌ Pixel not loaded. Check ad blockers.');
+            }
+        }
+        
+        function testViewContent() {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'ViewContent', {
+                    content_name: 'Test Content',
+                    content_category: 'Test Category'
+                });
+                updateEventCount();
+                showResult('ViewContent event sent to Meta Pixel!');
+                console.log('✅ ViewContent event fired');
+            } else {
+                alert('❌ Pixel not loaded. Check ad blockers.');
+            }
+        }
+        
+        function testLead() {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', {
+                    content_name: 'Test Lead',
+                    value: 0
+                });
+                updateEventCount();
+                showResult('Lead event sent to Meta Pixel!');
+                console.log('✅ Lead event fired');
+            } else {
+                alert('❌ Pixel not loaded. Check ad blockers.');
+            }
+        }
+        
+        function testPurchase() {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Purchase', {
+                    value: 799,
+                    currency: 'INR',
+                    content_name: 'Test Purchase'
+                });
+                updateEventCount();
+                showResult('Purchase event (₹799) sent to Meta Pixel!');
+                console.log('✅ Purchase event fired: ₹799');
+            } else {
+                alert('❌ Pixel not loaded. Check ad blockers.');
+            }
+        }
+    </script>
+</body>
+</html>

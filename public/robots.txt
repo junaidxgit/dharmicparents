@@ -1,0 +1,82 @@
+# Robots.txt for Dharmic Parents
+# Allow all search engines and AI crawlers
+
+# =============================================
+# AI ASSISTANT CRAWLERS (Explicitly Allowed)
+# =============================================
+
+# Claude (Anthropic)
+User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# ChatGPT/OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Google Bard/Gemini
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Manus AI
+User-agent: Manus
+Allow: /
+
+User-agent: ManusBot
+Allow: /
+
+# Microsoft Copilot/Bing AI
+User-agent: Bingbot
+Allow: /
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# =============================================
+# SEARCH ENGINE CRAWLERS (Allowed)
+# =============================================
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# =============================================
+# DEFAULT RULE (Allow all other bots)
+# =============================================
+
+User-agent: *
+Allow: /
+
+# Disallow admin and API pages for all bots
+Disallow: /admin.html
+Disallow: /admin_backup.html
+Disallow: /admin_simple.html
+Disallow: /customer-data.html
+Disallow: /test-*.html
+Disallow: /api/
+
+# =============================================
+# SITEMAP
+# =============================================
+Sitemap: https://dharmicparents.com/sitemap.xml

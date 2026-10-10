@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Your Dharmic Transformation Package - Receipt</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- PDF Generation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff5ee 0%, #fed7aa 50%, #fb923c 100%);
+            min-height: 100vh;
+        }
+        
+        .dharmic-gradient {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #d32f2f 100%);
+        }
+        
+        .dharmic-text {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #d32f2f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Print-specific styles */
+        @media print {
+            body {
+                background: white !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .pdf-content {
+                box-shadow: none !important;
+                border: none !important;
+            }
+        }
+        
+        .pdf-content {
+            background: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .package-item {
+            border-left: 4px solid #f97316;
+            background: linear-gradient(135deg, rgba(255, 248, 235, 0.5) 0%, rgba(255, 237, 213, 0.5) 100%);
+        }
+        
+        .step-badge {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #d32f2f 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto p-4 sm:p-8 my-8">
+        <!-- Download Button (Not included in PDF) -->
+        <div class="no-print text-center mb-6">
+            <button onclick="generatePDF()" 
+                    class="dharmic-gradient text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all inline-flex items-center space-x-3">
+                <i class="fas fa-download"></i>
+                <span>Download PDF Receipt</span>
+                <i class="fas fa-file-pdf"></i>
+            </button>
+            <p class="text-gray-600 mt-3 text-sm">
+                <i class="fas fa-info-circle mr-1"></i>
+                Click to download your package details as a PDF
+            </p>
+        </div>
+
+        <!-- PDF Content -->
+        <div id="pdf-content" class="pdf-content rounded-2xl p-8 sm:p-12">
+            <!-- Header -->
+            <div class="text-center mb-8 pb-6 border-b-2 border-orange-200">
+                <div class="flex justify-center items-center mb-4">
+                    <div class="w-16 h-16 dharmic-gradient rounded-xl flex items-center justify-center">
+                        <i class="fas fa-om text-white text-3xl"></i>
+                    </div>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-bold dharmic-text mb-2">SANATAN PARENTING</h1>
+                <p class="text-gray-600 font-medium">Dharmic Wisdom for Modern Fathers</p>
+                <p class="text-sm text-gray-500 mt-2">dharmicparents.com</p>
+            </div>
+
+            <!-- Success Badge -->
+            <div class="text-center mb-8">
+                <div class="inline-block">
+                    <div class="w-24 h-24 dharmic-gradient rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <i class="fas fa-check text-white text-4xl"></i>
+                    </div>
+                    <div class="flex justify-center space-x-2 mb-4">
+                        <i class="fas fa-star text-yellow-400 text-xl"></i>
+                        <i class="fas fa-star text-yellow-400 text-2xl"></i>
+                        <i class="fas fa-star text-yellow-400 text-xl"></i>
+                    </div>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-3">Sacred Journey Begins!</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                    Welcome to the Dharmic Father-Son Transformation. Your investment in sacred wisdom starts now!
+                </p>
+            </div>
+
+            <!-- Purchase Details -->
+            <div class="bg-orange-50 rounded-xl p-6 mb-8 border-2 border-orange-200">
+                <h3 class="font-bold text-orange-800 text-xl mb-4 flex items-center">
+                    <i class="fas fa-receipt mr-3 text-orange-600"></i>
+                    Purchase Confirmation
+                </h3>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <p class="text-gray-600 mb-1">Date</p>
+                        <p class="font-bold text-gray-800" id="purchase-date">-</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600 mb-1">Order ID</p>
+                        <p class="font-bold text-gray-800" id="order-id">-</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600 mb-1">Package</p>
+                        <p class="font-bold text-gray-800" id="package-type">Transformation Guide</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600 mb-1">Amount Paid</p>
+                        <p class="font-bold text-green-600 text-lg" id="amount-paid">₹799</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package Contents -->
+            <div class="mb-8">
+                <h3 class="font-bold text-gray-800 text-2xl mb-6 flex items-center">
+                    <i class="fas fa-gift text-orange-600 text-2xl mr-3"></i>
+                    Your Dharmic Transformation Package
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="package-item rounded-lg p-5">
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-scroll text-orange-500 text-2xl mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-lg mb-1">47-Page Transformation Guide</h4>
+                                <p class="text-gray-600">Complete roadmap with ancient dharmic principles for modern father-son relationships</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="package-item rounded-lg p-5">
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-comments text-orange-500 text-2xl mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-lg mb-1">7 Sacred Conversation Starters</h4>
+                                <p class="text-gray-600">Proven dialogue techniques that restore respect and deepen connection</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="package-item rounded-lg p-5">
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-calendar-alt text-orange-500 text-2xl mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-lg mb-1">30-Day Action Plan</h4>
+                                <p class="text-gray-600">Daily spiritual tasks for lasting transformation and measurable results</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="package-item rounded-lg p-5">
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-first-aid text-orange-500 text-2xl mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-lg mb-1">Emergency Response Guide</h4>
+                                <p class="text-gray-600">Handle conflicts with dharmic wisdom and immediate practical solutions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="bg-green-50 rounded-xl p-6 mb-8 border-2 border-green-200">
+                <h3 class="font-bold text-green-800 text-xl mb-5 flex items-center">
+                    <i class="fas fa-envelope-open text-green-600 text-xl mr-3"></i>
+                    What Happens Next
+                </h3>
+                <ul class="space-y-3 text-green-700">
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-600 mt-1 flex-shrink-0"></i>
+                        <span><strong>Check your email</strong> for instant access to your dharmic transformation guide</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-600 mt-1 flex-shrink-0"></i>
+                        <span><strong>Download all materials</strong> immediately - they're yours forever</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-600 mt-1 flex-shrink-0"></i>
+                        <span><strong>Start with the Quick Start Guide</strong> for immediate dharmic results</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-600 mt-1 flex-shrink-0"></i>
+                        <span><strong>Join our private dharmic community</strong> (if you purchased it)</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Your Sacred 4-Step Journey -->
+            <div class="bg-blue-50 rounded-xl p-6 mb-8 border-2 border-blue-200">
+                <h3 class="font-bold text-blue-800 text-xl mb-5 flex items-center">
+                    <i class="fas fa-route text-blue-600 text-xl mr-3"></i>
+                    Your Sacred 4-Step Journey
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-4">
+                        <div class="step-badge">1</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-1">Read the Quick Start Guide</h4>
+                            <p class="text-gray-600 text-sm">See dharmic results in just 24 hours</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="step-badge">2</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-1">Try the First Conversation</h4>
+                            <p class="text-gray-600 text-sm">Use tonight's dinner as your sacred opportunity</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="step-badge">3</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-1">Follow the 30-Day Plan</h4>
+                            <p class="text-gray-600 text-sm">One small dharmic step daily for lasting change</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="step-badge">4</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-1">Track Your Sacred Progress</h4>
+                            <p class="text-gray-600 text-sm">Use the dharmic progress worksheet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support & Guarantee -->
+            <div class="bg-gray-50 rounded-xl p-6 border-2 border-gray-200">
+                <div class="text-center mb-4">
+                    <i class="fas fa-hands-helping text-blue-600 text-3xl mb-3"></i>
+                    <h3 class="font-bold text-gray-800 text-xl mb-2">Need Dharmic Guidance?</h3>
+                </div>
+                <p class="text-gray-700 text-center mb-4">
+                    Our dharmic support team is dedicated to your father-son transformation success.<br>
+                    Reach out to us at <strong class="text-orange-600">dharmicparents@gmail.com</strong>
+                </p>
+                <div class="bg-green-100 border-2 border-green-300 rounded-lg p-4 text-center">
+                    <div class="flex items-center justify-center space-x-2 mb-2">
+                        <i class="fas fa-shield-check text-green-600"></i>
+                        <span class="font-bold text-green-800">Lifetime Access</span>
+                        <i class="fas fa-shield-check text-green-600"></i>
+                    </div>
+                    <p class="text-green-700 text-sm">
+                        Your dharmic investment is completely protected. We're committed to your transformation success!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 pt-6 border-t-2 border-gray-200 text-center">
+                <p class="text-gray-500 text-sm mb-2">
+                    <i class="fas fa-globe mr-1"></i>
+                    Visit us at <strong>dharmicparents.com</strong>
+                </p>
+                <p class="text-gray-500 text-sm">
+                    <i class="fas fa-envelope mr-1"></i>
+                    Contact: dharmicparents@gmail.com
+                </p>
+                <p class="text-gray-400 text-xs mt-4">
+                    © 2025 Dharmic Parents. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentId = urlParams.get('payment_id') || 'DP' + Date.now();
+        const amount = urlParams.get('amount') || '799';
+        const community = urlParams.get('community') === 'true';
+        
+        // Update purchase details
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set purchase date
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('en-IN', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            document.getElementById('purchase-date').textContent = dateStr;
+            
+            // Set order ID
+            document.getElementById('order-id').textContent = paymentId.substring(0, 16) + '...';
+            
+            // Set package type
+            const packageType = community ? 'Guide + Community' : 'Transformation Guide';
+            document.getElementById('package-type').textContent = packageType;
+            
+            // Set amount
+            document.getElementById('amount-paid').textContent = '₹' + amount;
+        });
+        
+        // Generate PDF function
+        function generatePDF() {
+            const element = document.getElementById('pdf-content');
+            const button = event.target.closest('button');
+            
+            // Show loading state
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Generating PDF...';
+            
+            const opt = {
+                margin: 10,
+                filename: 'Dharmic-Parents-Package-Receipt.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    letterRendering: true
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                }
+            };
+            
+            // Generate PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Reset button
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-download"></i><span>Download PDF Receipt</span><i class="fas fa-file-pdf"></i>';
+                
+                // Show success message
+                alert('✅ PDF downloaded successfully!\n\nYour Dharmic Parents package receipt has been saved.');
+            }).catch((error) => {
+                console.error('PDF generation error:', error);
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-download"></i><span>Download PDF Receipt</span><i class="fas fa-file-pdf"></i>';
+                alert('❌ PDF generation failed. Please try again or contact support.');
+            });
+        }
+    </script>
+</body>
+</html>

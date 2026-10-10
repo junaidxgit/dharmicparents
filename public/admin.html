@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Admin Dashboard - Dharmic Parents Analytics</title>
+    <link href="/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="bg-gradient-to-r from-orange-600 to-red-600 text-white p-3 sm:p-4 md:p-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-start sm:items-center">
+            <div>
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">
+                    <i class="fas fa-chart-line mr-3"></i>
+                    Dharmic Parents Admin Dashboard
+                </h1>
+                <p class="text-orange-100 mt-1 sm:mt-2 text-xs sm:text-sm md:text-base hidden sm:block">Real-time analytics for your parenting guidance platform</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2 sm:gap-4">
+                <button onclick="refreshData()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-2 sm:px-3 md:px-4 py-1 sm:py-2 rounded-lg transition-all duration-200 text-xs sm:text-sm md:text-base">
+                    <i class="fas fa-sync-alt mr-1 sm:mr-2"></i>
+                    <span class="hidden sm:inline">Refresh Data</span>
+                    <span class="inline sm:hidden">Refresh</span>
+                </button>
+                <div class="bg-white bg-opacity-20 px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm">
+                    <i class="fas fa-clock mr-1 sm:mr-2"></i>
+                    <span class="text-xs sm:text-sm">Auto: 30s</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading" class="flex items-center justify-center py-12">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
+        <span class="ml-3 text-gray-600">Loading dashboard data...</span>
+    </div>
+
+    <div id="dashboard-content" class="hidden max-w-full sm:max-w-7xl mx-auto p-2 sm:p-4 md:p-6">
+        <!-- Stats Overview -->
+        <div class="grid grid-cols-4 gap-2 sm:gap-4 md:gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-6">
+                <div class="flex items-center">
+                    <div class="p-2 sm:p-3 rounded-full bg-blue-100 text-blue-600">
+                        <i class="fas fa-users text-sm sm:text-lg md:text-xl"></i>
+                    </div>
+                    <div class="ml-2 sm:ml-3 md:ml-4">
+                        <p class="text-xs sm:text-sm font-medium text-gray-600">Users</p>
+                        <p class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900" id="stat-users">-</p>
+                        <p class="text-xs text-green-600" id="stat-users-recent">Loading...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-6">
+                <div class="flex items-center">
+                    <div class="p-2 sm:p-3 rounded-full bg-green-100 text-green-600">
+                        <i class="fas fa-heart text-sm sm:text-lg md:text-xl"></i>
+                    </div>
+                    <div class="ml-2 sm:ml-3 md:ml-4">
+                        <p class="text-xs sm:text-sm font-medium text-gray-600">Assessments</p>
+                        <p class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900" id="stat-assessments">-</p>
+                        <p class="text-xs text-green-600" id="stat-assessments-recent">Loading...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-6">
+                <div class="flex items-center">
+                    <div class="p-2 sm:p-3 rounded-full bg-purple-100 text-purple-600">
+                        <i class="fas fa-shopping-cart text-sm sm:text-lg md:text-xl"></i>
+                    </div>
+                    <div class="ml-2 sm:ml-3 md:ml-4">
+                        <p class="text-xs sm:text-sm font-medium text-gray-600">Purchases</p>
+                        <p class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900" id="stat-purchases">-</p>
+                        <p class="text-xs text-green-600" id="stat-purchases-recent">Loading...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-6">
+                <div class="flex items-center">
+                    <div class="p-2 sm:p-3 rounded-full bg-orange-100 text-orange-600">
+                        <i class="fas fa-rupee-sign text-sm sm:text-lg md:text-xl"></i>
+                    </div>
+                    <div class="ml-2 sm:ml-3 md:ml-4">
+                        <p class="text-xs sm:text-sm font-medium text-gray-600">Revenue</p>
+                        <p class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900" id="stat-revenue">-</p>
+                        <p class="text-xs text-green-600">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Tables -->
+        <div class="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                    <i class="fas fa-users text-blue-600 mr-2"></i>
+                    Recent Users
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                <th class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                                <th class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-left text-xs font-medium text-gray-500 uppercase">Score</th>
+                                <th class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table">
+                            <tr><td colspan="4" class="text-center py-4">Loading users...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                    <i class="fas fa-shopping-cart text-purple-600 mr-2"></i>
+                    Recent Purchases
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                <th class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                                <th class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="purchases-table">
+                            <tr><td colspan="4" class="text-center py-4">Loading purchases...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assessments Table -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                <i class="fas fa-heart text-green-600 mr-2"></i>
+                Recent Assessments
+            </h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full">
+                    <thead>
+                        <tr class="border-b">
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Health Score</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Communication</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Trust</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Completed</th>
+                        </tr>
+                    </thead>
+                    <tbody id="assessments-table">
+                        <tr><td colspan="6" class="text-center py-4">Loading assessments...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Top Pages -->
+        <div class="bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                <i class="fas fa-eye text-green-600 mr-2"></i>
+                Top Pages
+            </h3>
+            <div id="top-pages" class="space-y-2">
+                Loading page views...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log("Admin Dashboard: Starting initialization...");
+
+        // Global dashboard data
+        let dashboardData = {};
+
+        // Format currency function
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR'
+            }).format(amount);
+        }
+
+        // Format date function
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-IN');
+        }
+
+        // Load dashboard data from real APIs
+        async function loadDashboardData() {
+            console.log("Admin Dashboard: Loading data from APIs...");
+            
+            try {
+                // Load analytics
+                console.log("Fetching analytics...");
+                const analyticsResponse = await fetch('/api/admin/analytics');
+                const analytics = await analyticsResponse.json();
+                
+                if (!analytics.success) {
+                    throw new Error('Analytics API failed: ' + analytics.error);
+                }
+                
+                // Load users
+                console.log("Fetching users...");
+                const usersResponse = await fetch('/api/admin/users');
+                const users = await usersResponse.json();
+                
+                if (!users.success) {
+                    throw new Error('Users API failed: ' + users.error);
+                }
+                
+                // Load assessments
+                console.log("Fetching assessments...");
+                const assessmentsResponse = await fetch('/api/admin/assessments');
+                const assessments = await assessmentsResponse.json();
+                
+                if (!assessments.success) {
+                    throw new Error('Assessments API failed: ' + assessments.error);
+                }
+                
+                // Load purchases
+                console.log("Fetching purchases...");
+                const purchasesResponse = await fetch('/api/admin/purchases');
+                const purchases = await purchasesResponse.json();
+                
+                if (!purchases.success) {
+                    throw new Error('Purchases API failed: ' + purchases.error);
+                }
+                
+                dashboardData = {
+                    analytics: analytics.analytics,
+                    users: users.users,
+                    assessments: assessments.assessments,
+                    purchases: purchases.purchases
+                };
+                
+                console.log("Admin Dashboard: All data loaded successfully:", dashboardData);
+                updateDashboard();
+                
+            } catch (error) {
+                console.error('Admin Dashboard: Error loading data:', error);
+                
+                // Show error message
+                document.getElementById('loading').innerHTML = '<div class="text-center py-12"><div class="bg-red-100 text-red-800 p-4 rounded-lg"><i class="fas fa-exclamation-triangle text-2xl mb-2"></i><p class="font-semibold">Failed to load dashboard data</p><p class="text-sm">' + error.message + '</p><button onclick="refreshData()" class="mt-4 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">Try Again</button></div></div>';
+            }
+        }
+
+        // Update dashboard with loaded data
+        function updateDashboard() {
+            console.log("Admin Dashboard: Updating dashboard display...");
+            
+            const { analytics, users, assessments, purchases } = dashboardData;
+            
+            // Update stats with detailed logging and force update
+            console.log("📊 Updating dashboard with:", analytics.totals);
+            
+            // Force update each stat element
+            const usersStat = document.getElementById('stat-users');
+            const assessmentsStat = document.getElementById('stat-assessments');
+            const purchasesStat = document.getElementById('stat-purchases');
+            const revenueStat = document.getElementById('stat-revenue');
+            
+            // Update with animation to show change
+            if (usersStat) {
+                usersStat.textContent = String(analytics.totals.users || 0);
+                usersStat.classList.add('text-blue-600');
+                setTimeout(() => usersStat.classList.remove('text-blue-600'), 1000);
+            }
+            
+            if (assessmentsStat) {
+                assessmentsStat.textContent = String(analytics.totals.assessments || 0);
+                assessmentsStat.classList.add('text-green-600');
+                setTimeout(() => assessmentsStat.classList.remove('text-green-600'), 1000);
+            }
+            
+            if (purchasesStat) {
+                purchasesStat.textContent = String(analytics.totals.purchases || 0);
+                purchasesStat.classList.add('text-purple-600');
+                setTimeout(() => purchasesStat.classList.remove('text-purple-600'), 1000);
+            }
+            
+            if (revenueStat) {
+                revenueStat.textContent = formatCurrency(analytics.totals.revenue || 0);
+                revenueStat.classList.add('text-orange-600');
+                setTimeout(() => revenueStat.classList.remove('text-orange-600'), 1000);
+            }
+            
+            // Update recent stats
+            document.getElementById('stat-users-recent').textContent = '+' + (analytics.recent_30_days.new_users || 0) + ' this month';
+            document.getElementById('stat-assessments-recent').textContent = '+' + (analytics.recent_30_days.assessments || 0) + ' this month';
+            document.getElementById('stat-purchases-recent').textContent = '+' + (analytics.recent_30_days.purchases || 0) + ' this month';
+            
+            console.log("📈 Stats updated: Users=" + analytics.totals.users + ", Assessments=" + analytics.totals.assessments + ", Purchases=" + analytics.totals.purchases);
+
+            // Update users table
+            console.log("👥 Updating users table with", users.length, "users");
+            if (users.length > 0) {
+                console.log("🔝 First 3 users:", users.slice(0, 3).map(u => u.name + " (" + u.created_at + ")"));
+            }
+            
+            var usersHtml = '';
+            if (users && users.length > 0) {
+                for (var i = 0; i < Math.min(users.length, 10); i++) {
+                    var user = users[i];
+                    
+                    // Check if user is recent (created in last hour)
+                    var isRecent = false;
+                    if (user.created_at) {
+                        var createdTime = new Date(user.created_at).getTime();
+                        var currentTime = new Date().getTime();
+                        var hourAgo = currentTime - (60 * 60 * 1000);
+                        isRecent = createdTime > hourAgo;
+                    }
+                    
+                    usersHtml += '<tr class="' + (isRecent ? 'bg-green-50' : '') + '">';
+                    usersHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm font-medium text-gray-900">';
+                    usersHtml += (user.name || 'N/A');
+                    if (isRecent) {
+                        usersHtml += ' <span class="ml-2 bg-green-500 text-white text-xs px-2 py-1 rounded">NEW</span>';
+                    }
+                    usersHtml += '</td>';
+                    usersHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm text-gray-600">' + (user.email || 'N/A') + '</td>';
+                    usersHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm ' + (user.relationship_health_score ? 'font-bold text-green-600' : 'text-gray-400') + '">' + (user.relationship_health_score || 'No assessment') + '</td>';
+                    usersHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm text-gray-600">' + (user.created_at ? formatDate(user.created_at) : 'N/A') + '</td>';
+                    usersHtml += '</tr>';
+                }
+            } else {
+                usersHtml = '<tr><td colspan="4" class="text-center py-4 text-gray-500">No users found</td></tr>';
+            }
+            document.getElementById('users-table').innerHTML = usersHtml;
+            console.log("✅ Users table updated with", Math.min(users.length, 10), "rows");
+
+            // Update purchases table
+            console.log("💰 Updating purchases table with", purchases.length, "purchases");
+            if (purchases.length > 0) {
+                console.log("🔝 First 3 purchases:", purchases.slice(0, 3).map(p => p.name + " (" + p.purchased_at + ")"));
+            }
+            
+            var purchasesHtml = '';
+            if (purchases && purchases.length > 0) {
+                for (var i = 0; i < Math.min(purchases.length, 10); i++) {
+                    var purchase = purchases[i];
+                    
+                    // Check if purchase is recent (made in last hour)
+                    var isRecent = false;
+                    if (purchase.purchased_at) {
+                        var purchaseTime = new Date(purchase.purchased_at).getTime();
+                        var currentTime = new Date().getTime();
+                        var hourAgo = currentTime - (60 * 60 * 1000);
+                        isRecent = purchaseTime > hourAgo;
+                    }
+                    
+                    purchasesHtml += '<tr class="' + (isRecent ? 'bg-purple-50' : '') + '">';
+                    purchasesHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm font-medium text-gray-900">';
+                    purchasesHtml += (purchase.name || 'N/A');
+                    if (isRecent) {
+                        purchasesHtml += ' <span class="ml-2 bg-purple-500 text-white text-xs px-2 py-1 rounded">NEW</span>';
+                    }
+                    purchasesHtml += '</td>';
+                    purchasesHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm font-bold text-purple-600">' + formatCurrency(purchase.amount_paid || 0) + '</td>';
+                    purchasesHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm">';
+                    var statusClass = purchase.payment_status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800';
+                    purchasesHtml += '<span class="' + statusClass + ' px-2 py-1 rounded text-xs">' + (purchase.payment_status || 'unknown') + '</span>';
+                    purchasesHtml += '</td>';
+                    purchasesHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm text-gray-600">' + (purchase.purchased_at ? formatDate(purchase.purchased_at) : 'N/A') + '</td>';
+                    purchasesHtml += '</tr>';
+                }
+            } else {
+                purchasesHtml = '<tr><td colspan="4" class="text-center py-4 text-gray-500">No purchases found</td></tr>';
+            }
+            document.getElementById('purchases-table').innerHTML = purchasesHtml;
+            console.log("✅ Purchases table updated with", Math.min(purchases.length, 10), "rows");
+
+            // Update assessments table
+            var assessmentsHtml = '';
+            if (assessments && assessments.length > 0) {
+                for (var i = 0; i < Math.min(assessments.length, 10); i++) {
+                    var assessment = assessments[i];
+                    assessmentsHtml += '<tr>';
+                    assessmentsHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm font-medium text-gray-900">' + (assessment.name || 'N/A') + '</td>';
+                    assessmentsHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm text-gray-600">' + (assessment.email || 'N/A') + '</td>';
+                    assessmentsHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm font-bold text-green-600">' + (assessment.relationship_health_score || 'N/A') + '</td>';
+                    assessmentsHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm text-gray-600">' + (assessment.communication_score || 'N/A') + '</td>';
+                    assessmentsHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm text-gray-600">' + (assessment.trust_score || 'N/A') + '</td>';
+                    assessmentsHtml += '<td class="px-2 sm:px-3 md:px-4 py-1 sm:py-2 text-xs sm:text-sm text-gray-600">' + (assessment.completed_at ? formatDate(assessment.completed_at) : 'N/A') + '</td>';
+                    assessmentsHtml += '</tr>';
+                }
+            } else {
+                assessmentsHtml = '<tr><td colspan="6" class="text-center py-4 text-gray-500">No assessments found</td></tr>';
+            }
+            document.getElementById('assessments-table').innerHTML = assessmentsHtml;
+
+            // Update top pages
+            var pagesHtml = '';
+            if (analytics.top_pages && analytics.top_pages.length > 0) {
+                for (var i = 0; i < analytics.top_pages.length; i++) {
+                    var page = analytics.top_pages[i];
+                    pagesHtml += '<div class="flex justify-between items-center py-2">';
+                    pagesHtml += '<span class="text-gray-800">' + (page.page_url || 'Unknown') + '</span>';
+                    pagesHtml += '<span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">' + (page.views || 0) + ' views</span>';
+                    pagesHtml += '</div>';
+                }
+            } else {
+                pagesHtml = '<p class="text-gray-500">No page views recorded yet</p>';
+            }
+            document.getElementById('top-pages').innerHTML = pagesHtml;
+
+            // Update last refresh time with visual flash
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-IN', { 
+                hour12: true,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            // Add/update timestamp display
+            let timestampEl = document.getElementById('last-updated');
+            if (!timestampEl) {
+                const headerDiv = document.querySelector('.bg-gradient-to-r .max-w-7xl');
+                const timestampDiv = document.createElement('div');
+                timestampDiv.className = 'bg-white bg-opacity-20 px-3 py-1 rounded text-sm';
+                timestampDiv.id = 'last-updated';
+                const buttonContainer = headerDiv.querySelector('.flex.flex-col') || headerDiv.querySelector('.flex.gap-2');
+                if (buttonContainer) {
+                    buttonContainer.appendChild(timestampDiv);
+                }
+                timestampEl = timestampDiv;
+            }
+            timestampEl.innerHTML = '<i class="fas fa-sync-alt mr-1 text-green-400"></i>Updated: ' + timeString;
+            
+            // Flash effect to show update
+            timestampEl.style.backgroundColor = 'rgba(34, 197, 94, 0.3)';
+            setTimeout(() => {
+                timestampEl.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            }, 1000);
+
+            // Hide loading and show content
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('dashboard-content').classList.remove('hidden');
+            
+            console.log("Admin Dashboard: Display updated successfully at", timeString);
+        }
+
+        // Refresh data function
+        function refreshData() {
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('dashboard-content').classList.add('hidden');
+            document.getElementById('loading').innerHTML = '<div class="flex items-center justify-center py-12"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div><span class="ml-3 text-gray-600">Refreshing dashboard data...</span></div>';
+            
+            // Clear cache and force reload
+            dashboardData = null;
+            
+            loadDashboardData().then(() => {
+                // Add success notification
+                const notification = document.createElement('div');
+                notification.className = 'fixed top-20 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-500';
+                notification.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Dashboard updated successfully!';
+                document.body.appendChild(notification);
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => notification.remove(), 500);
+                }, 2500);
+            });
+        }
+
+        // Silent refresh function (no loading animation)
+        function silentRefresh() {
+            console.log("Admin Dashboard: Auto-refreshing data...");
+            loadDashboardData();
+        }
+
+        // Initialize dashboard when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Admin Dashboard: DOM loaded, starting data load...");
+            setTimeout(loadDashboardData, 500);
+            
+            // Set up auto-refresh every 30 seconds
+            setInterval(silentRefresh, 30000);
+        });
+
+        console.log("Admin Dashboard: Script loaded successfully!");
+    </script>
+</body>
+</html>

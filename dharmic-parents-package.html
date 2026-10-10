@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dharmic Parents - Your Transformation Package</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #333;
+            background: white;
+        }
+        
+        .logo-symbol, .sanskrit {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-weight: bold;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 4px solid #f97316;
+        }
+        
+        .logo-symbol {
+            font-size: 48px;
+            color: #f97316;
+            margin-bottom: 10px;
+        }
+        
+        .brand-name {
+            font-size: 36px;
+            font-weight: bold;
+            color: #f97316;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        
+        .brand-tagline {
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* Welcome Section */
+        .welcome {
+            text-align: center;
+            background: linear-gradient(135deg, #fff5ee 0%, #fed7aa 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .welcome-icon {
+            font-size: 64px;
+            color: #f97316;
+            margin-bottom: 20px;
+        }
+        
+        .welcome h1 {
+            font-size: 32px;
+            color: #f97316;
+            margin-bottom: 15px;
+        }
+        
+        .welcome p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        /* Section Headers */
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-header {
+            background: #f97316;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-icon {
+            margin-right: 15px;
+            font-size: 28px;
+        }
+        
+        /* Package Items */
+        .package-item {
+            background: #fff5ee;
+            border-left: 5px solid #f97316;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        
+        .package-item h3 {
+            color: #f97316;
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .package-item p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        
+        .package-item .icon {
+            color: #f97316;
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        /* Promises Box */
+        .promises-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 3px solid #3b82f6;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .promises-box h2 {
+            color: #1e40af;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .promise-item {
+            display: flex;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+        
+        .promise-item .heart {
+            color: #3b82f6;
+            font-size: 20px;
+            margin-right: 15px;
+            margin-top: 3px;
+        }
+        
+        .promise-item p {
+            color: #1e40af;
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        /* Next Steps */
+        .next-steps {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 3px solid #059669;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .next-steps h2 {
+            color: #065f46;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .step {
+            display: flex;
+            align-items: start;
+            margin-bottom: 18px;
+        }
+        
+        .step-number {
+            background: #059669;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .step-content p {
+            color: #065f46;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        /* Guarantee Box */
+        .guarantee {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 3px solid #f59e0b;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .guarantee h2 {
+            color: #92400e;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+        
+        .guarantee p {
+            color: #78350f;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+        
+        .shield-icon {
+            font-size: 48px;
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+        
+        /* Support Section */
+        .support {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .support h2 {
+            color: #374151;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .support p {
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .email {
+            color: #f97316;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e5e7eb;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-symbol">ॐ</div>
+            <div class="brand-name">DHARMIC PARENTS</div>
+            <div class="brand-tagline">Transform Your Father-Son Relationship Through Sacred Wisdom</div>
+        </div>
+
+        <!-- Welcome Section -->
+        <div class="welcome">
+            <div class="welcome-icon">✓</div>
+            <h1>Your Sacred Journey Begins!</h1>
+            <p>Welcome to the Dharmic Father-Son Transformation. Your investment in ancient wisdom and sacred principles starts now. This is your complete roadmap to restoring respect, deepening bonds, and reclaiming your role as a dharmic father.</p>
+        </div>
+
+        <!-- Your Transformation Package -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">🎁</span>
+                Your Complete Dharmic Transformation Package
+            </div>
+            
+            <div class="package-item">
+                <h3><span class="icon">📜</span> 47-Page Transformation Guide</h3>
+                <p>A comprehensive roadmap rooted in ancient dharmic principles, specifically designed for modern fathers. This guide contains time-tested wisdom adapted for today's challenges, helping you navigate the complexities of father-son relationships with sacred clarity and purpose.</p>
+            </div>
+            
+            <div class="package-item">
+                <h3><span class="icon">💬</span> 7 Sacred Conversation Starters</h3>
+                <p>Proven dialogue techniques based on ancient principles that restore respect and deepen connection. These conversation frameworks have been used by 12,847+ fathers to break through communication barriers and rebuild meaningful relationships with their sons.</p>
+            </div>
+            
+            <div class="package-item">
+                <h3><span class="icon">🔄</span> The Sacred Respect Restoration Framework</h3>
+                <p>A systematic approach to rebuilding the father-son dynamic grounded in dharmic values. This framework addresses the root causes of disrespect and provides actionable steps to restore reverence and honor in your family.</p>
+            </div>
+            
+            <div class="package-item">
+                <h3><span class="icon">📅</span> 30-Day Dharmic Action Plan</h3>
+                <p>Daily spiritual tasks designed for lasting transformation. Each day builds upon the previous, creating compound results that lead to measurable improvements in your relationship. Small, consistent actions rooted in dharmic wisdom create profound change.</p>
+            </div>
+            
+            <div class="package-item">
+                <h3><span class="icon">🚨</span> Emergency Dharmic Response Guide</h3>
+                <p>Immediate, practical solutions for handling conflicts with sacred wisdom. When tensions rise, this guide provides dharmic strategies to de-escalate situations, maintain your composure, and turn conflicts into opportunities for growth and understanding.</p>
+            </div>
+        </div>
+
+        <!-- Our Sacred Promises -->
+        <div class="promises-box">
+            <h2>Our Sacred Promises to You</h2>
+            
+            <div class="promise-item">
+                <span class="heart">❤️</span>
+                <p><strong>Restored Respect:</strong> Your son will seek your dharmic guidance and wisdom, recognizing your value as a father and mentor.</p>
+            </div>
+            
+            <div class="promise-item">
+                <span class="heart">❤️</span>
+                <p><strong>Sacred Bonding:</strong> Family meals transform into meaningful conversations where deep connection replaces surface-level talk.</p>
+            </div>
+            
+            <div class="promise-item">
+                <span class="heart">❤️</span>
+                <p><strong>Deep Reverence:</strong> Experience genuine respect and honor for your role as father, rooted in timeless dharmic values.</p>
+            </div>
+            
+            <div class="promise-item">
+                <span class="heart">❤️</span>
+                <p><strong>Peaceful Home:</strong> Reduce conflicts by 80% through dharmic communication principles that create harmony and understanding.</p>
+            </div>
+            
+            <div class="promise-item">
+                <span class="heart">❤️</span>
+                <p><strong>Legacy Building:</strong> Create a lasting impact that extends beyond your lifetime, establishing dharmic values that will guide future generations.</p>
+            </div>
+        </div>
+
+        <!-- What Happens Next -->
+        <div class="next-steps">
+            <h2>What Happens Next: Your 4-Step Journey</h2>
+            
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p><strong>Check Your Email:</strong> You'll receive instant access to all materials within the next few minutes. Download everything immediately - they're yours forever.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <p><strong>Read the Quick Start Guide:</strong> Begin with the first 10 pages to see dharmic results in just 24 hours. This section gives you immediate, actionable steps.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <p><strong>Try Your First Conversation:</strong> Use tonight's dinner as your sacred opportunity. Apply one conversation starter and witness the transformation begin.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <p><strong>Follow the 30-Day Plan:</strong> One small dharmic step daily creates lasting change. Track your progress using the included worksheet and celebrate small wins.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guarantee -->
+        <div class="guarantee">
+            <div class="shield-icon">🛡️</div>
+            <h2>60-Day Sacred Guarantee</h2>
+            <p>Your dharmic investment is completely protected. We stand behind the quality and effectiveness of this transformation guide for 60 days. We're committed to your transformation success.</p>
+        </div>
+
+        <!-- Support -->
+        <div class="support">
+            <h2>Need Dharmic Guidance?</h2>
+            <p>Our support team is dedicated to your father-son transformation success.</p>
+            <p>Reach out anytime: <span class="email">dharmicparents@gmail.com</span></p>
+            <p style="margin-top: 20px; color: #9ca3af; font-size: 14px;">We typically respond within 24 hours</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Dharmic Parents</strong></p>
+            <p>www.dharmicparents.com</p>
+            <p>© 2025 Dharmic Parents. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

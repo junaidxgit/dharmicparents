@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Dharmic Theme Styles */
+.dharmic-gradient {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #D32F2F 100%);
+}
+
+.dharmic-text {
+    background: linear-gradient(135deg, #FF6B35 0%, #D32F2F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #FF6B35 0%, #FF4500 100%);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #FF4500 0%, #D32F2F 100%);
+}
+
+/* Feature Card Styling */
+.feature-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+/* Pricing Card Styling */
+.pricing-card {
+    background: linear-gradient(135deg, rgba(255, 245, 238, 0.95) 0%, rgba(254, 215, 170, 0.95) 100%);
+    border: 2px solid rgba(255, 107, 53, 0.3);
+}
+
+/* Checkout Card Styling */
+.checkout-card {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 107, 53, 0.2);
+}
+
+/* Results Highlight */
+.results-highlight {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(96, 165, 250, 0.1) 100%);
+    border: 2px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Guarantee Badge */
+.guarantee-badge {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(74, 222, 128, 0.1) 100%);
+    border: 2px solid rgba(34, 197, 94, 0.3);
+}
+
+/* Mobile Touch Optimization */
+@media (hover: hover) {
+    button:hover, a:hover {
+        transform: scale(1.02);
+        transition: all 0.2s ease;
+    }
+}
+
+/* Mobile Tap Feedback */
+button:active, a:active {
+    transform: scale(0.98);
+    transition: all 0.1s ease;
+}
+
+/* Smooth Animations */
+* {
+    -webkit-tap-highlight-color: transparent;
+}

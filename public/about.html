@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-090XHEWYX4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-090XHEWYX4');
+    </script>
+    
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1385864342964404');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none" 
+           src="https://www.facebook.com/tr?id=1385864342964404&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Meta Pixel Code -->
+    
+    <!-- Facebook Domain Verification -->
+    <meta name="facebook-domain-verification" content="yhxmv53c9u3hwkeyylq4kw07qvi249" />
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Dharmic Parents</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/logo.png">
+    
+    <link href="/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .btn-primary {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-primary:active { transform: scale(0.98); }
+        
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        .hamburger {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 24px;
+            height: 24px;
+        }
+        .hamburger span {
+            background-color: #374151;
+            height: 3px;
+            width: 100%;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-orange-50 to-amber-50 min-h-screen">
+    <!-- Header -->
+    <header class="relative z-50 shadow-lg" style="background: linear-gradient(135deg, #FFF8DC 0%, #FFE4B5 100%); border-bottom: 3px solid #D4AF37;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1">
+            <!-- Desktop Layout -->
+            <div class="hidden md:block text-center">
+                <!-- Centered Logo -->
+                <div class="flex justify-center mb-0">
+                    <a href="index.html">
+                        <img src="/logo.png" 
+                             alt="Dharmic Parents" 
+                             class="h-48 md:h-56 w-auto"
+                             style="filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.3));">
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation Below Logo -->
+                <nav class="flex justify-center space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-orange-600 font-medium">Home</a>
+                    <a href="about.html" class="text-orange-600 font-medium">About</a>
+                    <a href="index.html#testimonials" class="text-gray-700 hover:text-orange-600 font-medium">Success Stories</a>
+                </nav>
+            </div>
+            
+            <!-- Mobile Layout -->
+            <div class="md:hidden text-center">
+                <div class="flex justify-center mb-0">
+                    <a href="index.html">
+                        <img src="/logo.png" 
+                             alt="Dharmic Parents" 
+                             class="h-40 w-auto"
+                             style="filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.3));">
+                    </a>
+                </div>
+                <nav class="flex justify-center items-center space-x-3 text-sm">
+                    <a href="index.html" class="text-gray-700 hover:text-orange-600 font-medium">Home</a>
+                    <span class="text-gray-400">•</span>
+                    <a href="about.html" class="text-orange-600 font-medium">About</a>
+                    <span class="text-gray-400">•</span>
+                    <a href="index.html#testimonials" class="text-gray-700 hover:text-orange-600 font-medium">Stories</a>
+                </nav>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+                About <span class="text-orange-600">Dharmic Parents</span>
+            </h1>
+            <p class="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
+                We help fathers restore respectful, loving relationships with their sons using 
+                time-tested principles combined with modern psychology.
+            </p>
+        </div>
+    </section>
+
+    <!-- Our Mission -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Mission</h2>
+                <p class="text-xl text-gray-700 max-w-4xl mx-auto">
+                    To restore the sacred bond between fathers and sons by reviving the ancient guru-shishya tradition 
+                    in modern families, helping fathers reclaim their position as respected mentors and guides.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Restore Respect</h3>
+                    <p class="text-gray-600">
+                        Help sons rediscover genuine respect and appreciation for their fathers through proven methods.
+                    </p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Strengthen Bonds</h3>
+                    <p class="text-gray-600">
+                        Create deeper emotional connections and meaningful communication between fathers and sons.
+                    </p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Proven Results</h3>
+                    <p class="text-gray-600">
+                        Over 12,000 fathers have successfully transformed their relationships using our methods.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
+                    <p class="text-gray-700 mb-4">
+                        Dharmic Parents was born from a deep understanding that modern families are facing an unprecedented crisis. 
+                        Traditional father-son relationships, which were once the backbone of our society, are breaking down.
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        We've witnessed countless fathers struggling with the same painful reality: their sons no longer seek their guidance, 
+                        respect their wisdom, or value their presence. This disconnection isn't just heartbreaking—it's destroying the 
+                        foundation of our families.
+                    </p>
+                    <p class="text-gray-700 mb-6">
+                        That's why we created a comprehensive system that combines ancient dharmic principles with modern psychological insights, 
+                        helping fathers reclaim their role as respected mentors and guides in their sons' lives.
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold text-orange-600 mb-4">The Crisis We Address</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">•</span>
+                            87% of Indian fathers feel their sons don't respect them
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">•</span>
+                            Sons spend more time with friends than family
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">•</span>
+                            Traditional values are being abandoned
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">•</span>
+                            Fathers feel like strangers in their own homes
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">•</span>
+                            The guru-shishya bond is disappearing
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Approach -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Unique Approach</h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                    We don't just give advice—we provide a complete transformation system based on proven principles.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-orange-600">1</span>
+                    </div>
+                    <h3 class="font-bold mb-2">Assessment</h3>
+                    <p class="text-gray-600 text-sm">
+                        Understand your current relationship dynamics and identify key areas for improvement.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-orange-600">2</span>
+                    </div>
+                    <h3 class="font-bold mb-2">Strategy</h3>
+                    <p class="text-gray-600 text-sm">
+                        Receive a personalized roadmap based on your specific situation and challenges.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-orange-600">3</span>
+                    </div>
+                    <h3 class="font-bold mb-2">Implementation</h3>
+                    <p class="text-gray-600 text-sm">
+                        Apply proven conversation starters and relationship-building techniques daily.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-orange-600">4</span>
+                    </div>
+                    <h3 class="font-bold mb-2">Transformation</h3>
+                    <p class="text-gray-600 text-sm">
+                        Experience a complete shift in how your son sees and interacts with you.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Spiritual Guides -->
+    <section class="py-20 bg-gradient-to-br from-orange-50 to-amber-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Wisdom from Our Spiritual Guides</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Our approach is deeply rooted in the timeless teachings of revered spiritual masters who understood the sacred father-son bond
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Guru 1: Chanakya -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-orange-100">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold text-white">चा</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900">आचार्य चाणक्य</h3>
+                        <p class="text-orange-600 font-medium">Ancient Political Strategist & Educator</p>
+                        <p class="text-sm text-gray-500">350-275 BCE</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <p class="text-sm italic text-gray-700 mb-2">
+                                "पुत्रो वा शत्रु वा मित्रो गुणदोषौ न बुध्यते।"
+                            </p>
+                            <p class="text-xs text-gray-600">
+                                A son can become your greatest ally or your worst enemy - it depends on how you guide him.
+                            </p>
+                        </div>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            <strong>Chanakya's teachings on parenting:</strong> He believed that a father's primary duty is to be both teacher and protector. 
+                            His Arthashastra contains profound insights about raising children with discipline, love, and dharmic values. 
+                            He emphasized that respect is earned through consistent moral conduct and wisdom, not through force or authority alone.
+                        </p>
+                        <div class="bg-gradient-to-r from-orange-100 to-yellow-100 p-3 rounded-lg">
+                            <p class="text-xs font-medium text-orange-800">
+                                Core Teaching: "The strength of a family lies in the father's ability to balance firmness with compassion."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guru 2: Swami Vivekananda -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-orange-100">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold text-white">स्वा</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900">स्वामी विवेकानन्द</h3>
+                        <p class="text-orange-600 font-medium">Spiritual Leader & Youth Mentor</p>
+                        <p class="text-sm text-gray-500">1863-1902</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <p class="text-sm italic text-gray-700 mb-2">
+                                "Man-making is my mission. The older I grow, the more everything seems to me to lie in manliness."
+                            </p>
+                        </div>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            <strong>Vivekananda's parenting philosophy:</strong> He revolutionized the concept of character building in young men. 
+                            His approach focused on developing inner strength, self-confidence, and moral courage. He taught that every father 
+                            should be his son's first guru, inspiring him through personal example rather than mere instruction.
+                        </p>
+                        <div class="bg-gradient-to-r from-blue-100 to-indigo-100 p-3 rounded-lg">
+                            <p class="text-xs font-medium text-blue-800">
+                                Core Teaching: "Be yourself first, then teach. The best teaching is done through living example."
+                            </p>
+                        </div>
+                        <p class="text-gray-700 text-sm">
+                            His methods emphasized building self-reliance, spiritual awareness, and respect for elders through personal transformation of the father himself.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Guru 3: Maharishi Dayanand Saraswati -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-orange-100">
+                    <div class="text-center mb-6">
+                        <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold text-white">द</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900">महर्षि दयानन्द सरस्वती</h3>
+                        <p class="text-orange-600 font-medium">Social Reformer & Vedic Scholar</p>
+                        <p class="text-sm text-gray-500">1824-1883</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <p class="text-sm italic text-gray-700 mb-2">
+                                "माता सा धात्री पिता स हि जनयिता गुरुः स्यात्।"
+                            </p>
+                            <p class="text-xs text-gray-600">
+                                Mother nurtures the body, but father shapes the soul and character - he is the true guru.
+                            </p>
+                        </div>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            <strong>Dayanand's family teachings:</strong> He advocated for the revival of the ancient gurukula system within families. 
+                            According to him, every father should become his son's spiritual and moral guide, teaching Vedic values through 
+                            daily practice. He emphasized that respect comes naturally when a father embodies truth, righteousness, and selfless service.
+                        </p>
+                        <div class="bg-gradient-to-r from-green-100 to-emerald-100 p-3 rounded-lg">
+                            <p class="text-xs font-medium text-green-800">
+                                Core Teaching: "Satyam eva jayate - Truth alone triumphs. Live truthfully and your son will honor you naturally."
+                            </p>
+                        </div>
+                        <p class="text-gray-700 text-sm">
+                            His Satyarth Prakash contains detailed guidance on raising morally strong sons who respect dharmic principles and family values.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integration Section -->
+            <div class="mt-16 bg-white rounded-2xl p-8 shadow-lg">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">How We Integrate This Ancient Wisdom</h3>
+                    <p class="text-gray-600 max-w-4xl mx-auto">
+                        Our Dharmic Parents program combines these timeless teachings with modern psychology, 
+                        creating a practical roadmap for today's fathers to reclaim their role as respected guides and mentors.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center p-4">
+                        <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-book text-orange-600"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Chanakya's Discipline</h4>
+                        <p class="text-sm text-gray-600">Balanced authority with love and wisdom</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-heart text-blue-600"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Vivekananda's Character</h4>
+                        <p class="text-sm text-gray-600">Leading by example and personal transformation</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-star text-green-600"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Dayanand's Truth</h4>
+                        <p class="text-sm text-gray-600">Living with integrity and dharmic values</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Fathers Choose Dharmic Parents</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold text-green-600 mb-4">✅ What Makes Us Different</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li>• <strong>Proven System:</strong> Over 12,000 successful transformations</li>
+                        <li>• <strong>Cultural Understanding:</strong> Rooted in dharmic principles and values</li>
+                        <li>• <strong>Modern Psychology:</strong> Combined with contemporary relationship science</li>
+                        <li>• <strong>Practical Tools:</strong> Conversation starters that work immediately</li>
+                        <li>• <strong>Step-by-Step Process:</strong> Clear roadmap from conflict to connection</li>
+                        <li>• <strong>Ongoing Support:</strong> Private community of like-minded fathers</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold text-orange-600 mb-4">📈 Our Track Record</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+                            <span class="font-medium">Success Rate</span>
+                            <span class="text-2xl font-bold text-green-600">94%</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+                            <span class="font-medium">Fathers Helped</span>
+                            <span class="text-2xl font-bold text-blue-600">12,847</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-orange-50 rounded-lg">
+                            <span class="font-medium">Average Results Time</span>
+                            <span class="text-2xl font-bold text-orange-600">30 Days</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
+                            <span class="font-medium">Customer Satisfaction</span>
+                            <span class="text-2xl font-bold text-purple-600">98%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-orange-600 to-red-600 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Relationship?</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">
+                Join thousands of fathers who have successfully restored respect and connection with their sons.
+            </p>
+            <a href="survey.html" class="bg-white text-orange-600 px-12 py-4 text-xl font-bold rounded-lg inline-block hover:bg-gray-100 transition-all">
+                Start Your Assessment Now →
+            </a>
+            <div class="mt-6 text-orange-100">
+                <p class="text-sm">Free assessment • Personalized roadmap • Proven results</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="text-2xl font-bold mb-4">Dharmic Parents</div>
+            <p class="text-gray-400 mb-4">
+                Restoring father-son relationships through proven methods
+            </p>
+            <div class="space-x-6">
+                <a href="index.html" class="text-gray-400 hover:text-white">Home</a>
+                <a href="about.html" class="text-gray-400 hover:text-white">About</a>
+                <a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white">Terms of Service</a>
+                <a href="mailto:dharmicparents@gmail.com" class="text-gray-400 hover:text-white">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Enhanced touch optimization and mobile menu -->
+    <script>
+        // Mobile menu functions
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileOverlay = document.getElementById('mobile-overlay');
+            const hamburger = document.getElementById('hamburger');
+            
+            const isOpen = mobileMenu.classList.contains('open');
+            
+            if (isOpen) {
+                // Close menu
+                mobileMenu.classList.remove('open');
+                mobileOverlay.classList.add('hidden');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            } else {
+                // Open menu
+                mobileMenu.classList.add('open');
+                mobileOverlay.classList.remove('hidden');
+                hamburger.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Touch optimization
+            const buttons = document.querySelectorAll('.btn-primary, button, a[href]');
+            buttons.forEach(btn => {
+                btn.addEventListener('touchstart', function() {
+                    if (this.classList.contains('btn-primary')) {
+                        this.style.transform = 'scale(0.98)';
+                    }
+                });
+                btn.addEventListener('touchend', function() {
+                    if (this.classList.contains('btn-primary')) {
+                        this.style.transform = 'scale(1)';
+                    }
+                });
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                const mobileMenu = document.getElementById('mobile-menu');
+                const hamburger = document.getElementById('hamburger');
+                
+                if (mobileMenu.classList.contains('open') && 
+                    !mobileMenu.contains(e.target) && 
+                    !hamburger.contains(e.target)) {
+                    toggleMobileMenu();
+                }
+            });
+
+            // Close mobile menu on window resize if desktop size
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) { // md breakpoint
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (mobileMenu.classList.contains('open')) {
+                        toggleMobileMenu();
+                    }
+                }
+            });
+        });
+    </script>
+    
+    <!-- Dharmic Parents Tracking -->
+    <script src="tracking.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.DharmicTracking) {
+                window.DharmicTracking.trackAction('about_page_loaded');
+                
+                // Track assessment CTA clicks from about page
+                const ctaButtons = document.querySelectorAll('a[href="survey.html"]');
+                ctaButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        window.DharmicTracking.trackAction('about_to_survey_clicked');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

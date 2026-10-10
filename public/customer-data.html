@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Data - Dharmic Parents</title>
+    <link href="/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">
+                <i class="fas fa-users mr-3 text-orange-600"></i>
+                Customer Data Dashboard
+            </h1>
+
+            <!-- API Status Check -->
+            <div id="api-status" class="mb-6 p-4 rounded-lg border">
+                <h2 class="text-lg font-semibold mb-2">
+                    <i class="fas fa-server mr-2"></i>API Status Check
+                </h2>
+                <div id="status-content">Testing API connections...</div>
+            </div>
+
+            <!-- Manual Data Entry Section -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4">
+                    <i class="fas fa-plus-circle mr-2 text-green-600"></i>
+                    Test Data Entry (For Testing Meta Pixel)
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Assessment Test -->
+                    <div class="border rounded-lg p-4">
+                        <h3 class="font-semibold mb-3">Assessment Test</h3>
+                        <div class="space-y-3">
+                            <input type="text" id="test-name" placeholder="Enter name" class="w-full p-2 border rounded">
+                            <input type="email" id="test-email" placeholder="Enter email" class="w-full p-2 border rounded">
+                            <select id="test-score" class="w-full p-2 border rounded">
+                                <option value="25">Low Score (25%) - High Intent</option>
+                                <option value="50">Medium Score (50%)</option>
+                                <option value="75">High Score (75%) - Low Intent</option>
+                            </select>
+                            <button onclick="submitTestAssessment()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                                <i class="fas fa-clipboard-check mr-2"></i>Submit Test Assessment
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Purchase Test -->
+                    <div class="border rounded-lg p-4">
+                        <h3 class="font-semibold mb-3">Purchase Test</h3>
+                        <div class="space-y-3">
+                            <input type="text" id="purchase-name" placeholder="Enter name" class="w-full p-2 border rounded">
+                            <input type="email" id="purchase-email" placeholder="Enter email" class="w-full p-2 border rounded">
+                            <select id="purchase-amount" class="w-full p-2 border rounded">
+                                <option value="497">Basic Guide (₹497)</option>
+                                <option value="997">Premium Guide (₹997)</option>
+                                <option value="1497">Premium + Community (₹1,497)</option>
+                            </select>
+                            <button onclick="submitTestPurchase()" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
+                                <i class="fas fa-shopping-cart mr-2"></i>Submit Test Purchase
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Local Storage Data Viewer -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4">
+                    <i class="fas fa-database mr-2 text-purple-600"></i>
+                    Local Test Data (Browser Storage)
+                </h2>
+                <div id="local-data" class="space-y-4">
+                    <!-- Local data will be displayed here -->
+                </div>
+                <div class="mt-4 space-x-4">
+                    <button onclick="refreshLocalData()" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+                        <i class="fas fa-refresh mr-2"></i>Refresh Data
+                    </button>
+                    <button onclick="clearLocalData()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                        <i class="fas fa-trash mr-2"></i>Clear Test Data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Meta Pixel Events Log -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">
+                    <i class="fas fa-chart-line mr-2 text-orange-600"></i>
+                    Meta Pixel Events Log
+                </h2>
+                <div id="pixel-events" class="space-y-2">
+                    <!-- Pixel events will be logged here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1385864342964404');
+    fbq('track', 'PageView');
+    
+    // Log pixel events
+    logPixelEvent('PageView', 'Customer Data Dashboard loaded');
+    </script>
+
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAPIStatus();
+            refreshLocalData();
+        });
+
+        // Test API endpoints
+        async function checkAPIStatus() {
+            const statusDiv = document.getElementById('status-content');
+            const endpoints = [
+                '/api/admin/analytics',
+                '/api/admin/users', 
+                '/api/admin/assessments',
+                '/api/admin/purchases'
+            ];
+
+            let statusHTML = '<div class="space-y-2">';
+            
+            for (const endpoint of endpoints) {
+                try {
+                    const response = await fetch(endpoint);
+                    const isJSON = response.headers.get('content-type')?.includes('application/json');
+                    const status = response.ok && isJSON ? 
+                        '<span class="text-green-600">✅ Working</span>' : 
+                        '<span class="text-red-600">❌ Returns HTML (not API)</span>';
+                    
+                    statusHTML += `<div><strong>${endpoint}:</strong> ${status}</div>`;
+                } catch (error) {
+                    statusHTML += `<div><strong>${endpoint}:</strong> <span class="text-red-600">❌ Error</span></div>`;
+                }
+            }
+            
+            statusHTML += '</div>';
+            statusDiv.innerHTML = statusHTML;
+        }
+
+        // Submit test assessment
+        function submitTestAssessment() {
+            const name = document.getElementById('test-name').value;
+            const email = document.getElementById('test-email').value;
+            const score = parseInt(document.getElementById('test-score').value);
+
+            if (!name || !email) {
+                alert('Please fill in name and email');
+                return;
+            }
+
+            // Store in local storage
+            const assessmentData = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                relationship_health_score: score,
+                completed_at: new Date().toISOString(),
+                type: 'assessment'
+            };
+
+            saveToLocalStorage('assessments', assessmentData);
+
+            // Fire Meta Pixel events
+            if (typeof fbq !== 'undefined') {
+                // Lead event for starting assessment
+                fbq('track', 'Lead', {
+                    content_name: 'Father Son Assessment',
+                    content_category: 'assessment',
+                    value: score < 50 ? 10 : score < 70 ? 5 : 1, // Higher value for lower scores
+                    currency: 'INR'
+                });
+
+                logPixelEvent('Lead', `Assessment by ${name} (${email}) - Score: ${score}%`);
+
+                // Complete Registration
+                fbq('track', 'CompleteRegistration', {
+                    content_name: 'Assessment Completed',
+                    content_category: 'lead_generation',
+                    value: 5,
+                    currency: 'INR'
+                });
+
+                logPixelEvent('CompleteRegistration', `Assessment completed by ${name}`);
+
+                // Custom qualified lead event
+                fbq('trackCustom', 'QualifiedLead', {
+                    relationship_health_score: score,
+                    lead_quality: score < 50 ? 'high' : score < 70 ? 'medium' : 'low',
+                    email: email,
+                    name: name
+                });
+
+                logPixelEvent('QualifiedLead (Custom)', `${name} - ${score}% score`);
+
+                // High-value lead for low scores
+                if (score < 50) {
+                    fbq('trackCustom', 'HighValueLead', {
+                        score: score,
+                        urgency_level: 'high'
+                    });
+                    logPixelEvent('HighValueLead (Custom)', `High-priority lead: ${name}`);
+                }
+            }
+
+            // Clear form
+            document.getElementById('test-name').value = '';
+            document.getElementById('test-email').value = '';
+            
+            alert(`✅ Assessment submitted for ${name}!\nMeta Pixel events fired. Check Facebook Events Manager.`);
+            refreshLocalData();
+        }
+
+        // Submit test purchase
+        function submitTestPurchase() {
+            const name = document.getElementById('purchase-name').value;
+            const email = document.getElementById('purchase-email').value;
+            const amount = parseInt(document.getElementById('purchase-amount').value);
+
+            if (!name || !email) {
+                alert('Please fill in name and email');
+                return;
+            }
+
+            // Store in local storage
+            const purchaseData = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                amount_paid: amount,
+                purchased_at: new Date().toISOString(),
+                type: 'purchase'
+            };
+
+            saveToLocalStorage('purchases', purchaseData);
+
+            // Fire Meta Pixel events
+            if (typeof fbq !== 'undefined') {
+                // Purchase event
+                fbq('track', 'Purchase', {
+                    content_name: 'Dharmic Transformation Guide',
+                    content_type: 'product',
+                    content_category: 'parenting_guide',
+                    value: amount,
+                    currency: 'INR',
+                    num_items: amount >= 1400 ? 2 : 1
+                });
+
+                logPixelEvent('Purchase', `${name} purchased ₹${amount} guide`);
+
+                // Custom purchase event
+                fbq('trackCustom', 'TransformationPurchase', {
+                    product_type: 'transformation_guide',
+                    community_addon: amount >= 1400,
+                    customer_name: name,
+                    customer_email: email,
+                    amount: amount
+                });
+
+                logPixelEvent('TransformationPurchase (Custom)', `${name} - ₹${amount}`);
+
+                // High-value customer for premium purchases
+                if (amount >= 997) {
+                    fbq('trackCustom', 'HighValueCustomer', {
+                        lifetime_value: amount,
+                        segment: amount >= 1400 ? 'premium' : 'standard'
+                    });
+                    logPixelEvent('HighValueCustomer (Custom)', `Premium customer: ${name}`);
+                }
+            }
+
+            // Clear form
+            document.getElementById('purchase-name').value = '';
+            document.getElementById('purchase-email').value = '';
+            
+            alert(`✅ Purchase submitted for ${name}!\nMeta Pixel Purchase event fired. Check Facebook Events Manager.`);
+            refreshLocalData();
+        }
+
+        // Local storage helpers
+        function saveToLocalStorage(type, data) {
+            const existing = JSON.parse(localStorage.getItem(type) || '[]');
+            existing.push(data);
+            localStorage.setItem(type, JSON.stringify(existing));
+        }
+
+        function refreshLocalData() {
+            const assessments = JSON.parse(localStorage.getItem('assessments') || '[]');
+            const purchases = JSON.parse(localStorage.getItem('purchases') || '[]');
+            
+            let html = '';
+            
+            if (assessments.length > 0) {
+                html += '<h3 class="font-semibold text-lg mb-2">📋 Test Assessments</h3>';
+                html += '<div class="overflow-x-auto"><table class="min-w-full border border-gray-300 mb-4">';
+                html += '<thead class="bg-gray-50"><tr><th class="border px-4 py-2">Name</th><th class="border px-4 py-2">Email</th><th class="border px-4 py-2">Score</th><th class="border px-4 py-2">Date</th></tr></thead><tbody>';
+                
+                assessments.forEach(assessment => {
+                    const date = new Date(assessment.completed_at).toLocaleString();
+                    html += `<tr><td class="border px-4 py-2">${assessment.name}</td><td class="border px-4 py-2">${assessment.email}</td><td class="border px-4 py-2">${assessment.relationship_health_score}%</td><td class="border px-4 py-2">${date}</td></tr>`;
+                });
+                
+                html += '</tbody></table></div>';
+            }
+            
+            if (purchases.length > 0) {
+                html += '<h3 class="font-semibold text-lg mb-2">💰 Test Purchases</h3>';
+                html += '<div class="overflow-x-auto"><table class="min-w-full border border-gray-300 mb-4">';
+                html += '<thead class="bg-gray-50"><tr><th class="border px-4 py-2">Name</th><th class="border px-4 py-2">Email</th><th class="border px-4 py-2">Amount</th><th class="border px-4 py-2">Date</th></tr></thead><tbody>';
+                
+                purchases.forEach(purchase => {
+                    const date = new Date(purchase.purchased_at).toLocaleString();
+                    html += `<tr><td class="border px-4 py-2">${purchase.name}</td><td class="border px-4 py-2">${purchase.email}</td><td class="border px-4 py-2">₹${purchase.amount_paid}</td><td class="border px-4 py-2">${date}</td></tr>`;
+                });
+                
+                html += '</tbody></table></div>';
+            }
+            
+            if (html === '') {
+                html = '<p class="text-gray-600 italic">No test data yet. Submit some test assessments or purchases above.</p>';
+            }
+            
+            document.getElementById('local-data').innerHTML = html;
+        }
+
+        function clearLocalData() {
+            if (confirm('Clear all test data?')) {
+                localStorage.removeItem('assessments');
+                localStorage.removeItem('purchases');
+                localStorage.removeItem('pixelEvents');
+                refreshLocalData();
+                document.getElementById('pixel-events').innerHTML = '<p class="text-gray-600 italic">Pixel events log cleared.</p>';
+            }
+        }
+
+        // Pixel event logging
+        function logPixelEvent(eventType, description) {
+            const events = JSON.parse(localStorage.getItem('pixelEvents') || '[]');
+            events.push({
+                type: eventType,
+                description: description,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('pixelEvents', JSON.stringify(events.slice(-20))); // Keep last 20 events
+            
+            displayPixelEvents();
+        }
+
+        function displayPixelEvents() {
+            const events = JSON.parse(localStorage.getItem('pixelEvents') || '[]');
+            let html = '';
+            
+            if (events.length > 0) {
+                events.reverse().forEach(event => {
+                    const time = new Date(event.timestamp).toLocaleTimeString();
+                    html += `<div class="flex justify-between items-center py-2 px-3 bg-gray-50 rounded">
+                        <div><strong class="text-orange-600">${event.type}:</strong> ${event.description}</div>
+                        <div class="text-sm text-gray-500">${time}</div>
+                    </div>`;
+                });
+            } else {
+                html = '<p class="text-gray-600 italic">No pixel events logged yet. Submit test data above to see events.</p>';
+            }
+            
+            document.getElementById('pixel-events').innerHTML = html;
+        }
+
+        // Display initial pixel events
+        displayPixelEvents();
+    </script>
+
+    <!-- Facebook Domain Verification -->
+    <meta name="facebook-domain-verification" content="yhxmv53c9u3hwkeyylq4kw07qvi249" />
+</body>
+</html>

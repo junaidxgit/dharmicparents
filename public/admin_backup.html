@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-090XHEWYX4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-090XHEWYX4');
+    </script>
+    
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1385864342964404');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none" 
+           src="https://www.facebook.com/tr?id=1385864342964404&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Meta Pixel Code -->
+    
+    <!-- Facebook Domain Verification -->
+    <meta name="facebook-domain-verification" content="yhxmv53c9u3hwkeyylq4kw07qvi249" />
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Dharmic Parents Analytics</title>
+    <link href="/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        .dharmic-text {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #d32f2f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .dharmic-gradient {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #d32f2f 100%);
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .table-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-orange-50 to-orange-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg border-b-4 border-orange-300">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 dharmic-gradient rounded-xl flex items-center justify-center">
+                        <i class="fas fa-chart-bar text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold dharmic-text">Dharmic Parents</h1>
+                        <p class="text-gray-600">Admin Analytics Dashboard</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="refreshData()" class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700">
+                        <i class="fas fa-sync-alt mr-2"></i>Refresh
+                    </button>
+                    <a href="index.html" class="text-gray-600 hover:text-orange-600">
+                        <i class="fas fa-home mr-2"></i>Back to Site
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Loading indicator -->
+        <div id="loading" class="text-center py-12">
+            <i class="fas fa-spinner fa-spin text-4xl text-orange-600 mb-4"></i>
+            <p class="text-gray-600">Loading analytics data...</p>
+        </div>
+
+        <!-- Main content (hidden initially) -->
+        <div id="dashboard-content" class="hidden">
+            <!-- Stats Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="stat-card rounded-xl p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Total Users</p>
+                            <p id="stat-users" class="text-3xl font-bold dharmic-text">0</p>
+                            <p class="text-green-600 text-sm">
+                                <span id="stat-users-recent">0</span> this month
+                            </p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-users text-blue-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card rounded-xl p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Assessments</p>
+                            <p id="stat-assessments" class="text-3xl font-bold dharmic-text">0</p>
+                            <p class="text-green-600 text-sm">
+                                <span id="stat-assessments-recent">0</span> this month
+                            </p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-clipboard-list text-green-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card rounded-xl p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Purchases</p>
+                            <p id="stat-purchases" class="text-3xl font-bold dharmic-text">0</p>
+                            <p class="text-green-600 text-sm">
+                                <span id="stat-purchases-recent">0</span> this month
+                            </p>
+                        </div>
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-shopping-cart text-purple-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card rounded-xl p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Revenue</p>
+                            <p id="stat-revenue" class="text-3xl font-bold dharmic-text">₹0</p>
+                            <p class="text-gray-600 text-sm">Total earned</p>
+                        </div>
+                        <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-rupee-sign text-yellow-600 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Pages -->
+            <div class="stat-card rounded-xl p-6 mb-8">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-chart-line mr-2 text-orange-600"></i>
+                    Top Pages (Last 7 Days)
+                </h3>
+                <div id="top-pages" class="space-y-2">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Tabs for different data views -->
+            <div class="mb-6">
+                <div class="border-b border-gray-200">
+                    <nav class="-mb-px flex space-x-8">
+                        <button onclick="showTab('users')" id="tab-users" class="tab-button active border-orange-500 text-orange-600 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+                            Users & Leads
+                        </button>
+                        <button onclick="showTab('assessments')" id="tab-assessments" class="tab-button border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+                            Assessment Results
+                        </button>
+                        <button onclick="showTab('purchases')" id="tab-purchases" class="tab-button border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+                            Purchase History
+                        </button>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div id="tab-content-users" class="tab-content stat-card rounded-xl p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-users mr-2 text-blue-600"></i>
+                    Recent Users & Leads
+                </h3>
+                <div class="table-container">
+                    <table class="min-w-full">
+                        <thead class="bg-gray-50 sticky top-0">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Phone</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Source</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Assessment Score</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Purchase Amount</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table" class="divide-y divide-gray-200">
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Assessments Table -->
+            <div id="tab-content-assessments" class="tab-content stat-card rounded-xl p-6 hidden">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-clipboard-list mr-2 text-green-600"></i>
+                    Assessment Results
+                </h3>
+                <div class="table-container">
+                    <table class="min-w-full">
+                        <thead class="bg-gray-50 sticky top-0">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Health Score</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Communication</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Trust</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Emotional</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assessments-table" class="divide-y divide-gray-200">
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Purchases Table -->
+            <div id="tab-content-purchases" class="tab-content stat-card rounded-xl p-6 hidden">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-shopping-cart mr-2 text-purple-600"></i>
+                    Purchase History
+                </h3>
+                <div class="table-container">
+                    <table class="min-w-full">
+                        <thead class="bg-gray-50 sticky top-0">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Community</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Payment ID</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="purchases-table" class="divide-y divide-gray-200">
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let dashboardData = {};
+
+        // Tab management
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Remove active state from all tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active', 'border-orange-500', 'text-orange-600');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            });
+            
+            // Show selected tab content
+            document.getElementById(`tab-content-${tabName}`).classList.remove('hidden');
+            
+            // Activate selected tab button
+            const activeTab = document.getElementById(`tab-${tabName}`);
+            activeTab.classList.add('active', 'border-orange-500', 'text-orange-600');
+            activeTab.classList.remove('border-transparent', 'text-gray-500');
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-IN', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Format currency
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR'
+            }).format(amount);
+        }
+
+        // Load dashboard data - Using mock data for development
+        function loadDashboardData() {
+            console.log('Loading dashboard data...');
+            try {
+                // Mock data that matches the sample database
+                window.dashboardData = {
+                    analytics: {
+                        totals: {
+                            users: 10,
+                            assessments: 6,
+                            purchases: 5,
+                            revenue: 4995.00,
+                            page_views: 13
+                        },
+                        recent_30_days: {
+                            new_users: 8,
+                            assessments: 5,
+                            purchases: 4,
+                            revenue: 3996.00
+                        },
+                        top_pages: [
+                            { page_url: '/assessment', views: 4 },
+                            { page_url: '/courses', views: 3 },
+                            { page_url: '/', views: 2 },
+                            { page_url: '/about', views: 2 },
+                            { page_url: '/contact', views: 2 }
+                        ]
+                    },
+                    users: [
+                        { id: 1, name: 'Rajesh Kumar', email: 'rajesh@email.com', phone: '+91-9876543210', source: 'organic', relationship_health_score: 85, amount_paid: 999.00, created_at: '2024-08-15T10:30:00Z' },
+                        { id: 2, name: 'Arjun Singh', email: 'arjun@email.com', phone: '+91-9876543211', source: 'facebook', relationship_health_score: 72, amount_paid: 999.00, created_at: '2024-08-20T14:20:00Z' },
+                        { id: 3, name: 'Deepak Sharma', email: 'deepak@email.com', phone: '+91-9876543212', source: 'google', relationship_health_score: 78, amount_paid: 999.00, created_at: '2024-08-25T09:15:00Z' },
+                        { id: 4, name: 'Vikram Patel', email: 'vikram@email.com', phone: '+91-9876543213', source: 'organic', relationship_health_score: 91, amount_paid: 999.00, created_at: '2024-09-01T16:45:00Z' },
+                        { id: 5, name: 'Suresh Gupta', email: 'suresh@email.com', phone: '+91-9876543214', source: 'instagram', relationship_health_score: 69, amount_paid: 999.00, created_at: '2024-09-05T11:30:00Z' },
+                        { id: 6, name: 'Amit Agarwal', email: 'amit@email.com', phone: '+91-9876543215', source: 'organic', relationship_health_score: null, amount_paid: null, created_at: '2024-09-10T08:20:00Z' },
+                        { id: 7, name: 'Rahul Joshi', email: 'rahul@email.com', phone: '+91-9876543216', source: 'facebook', relationship_health_score: null, amount_paid: null, created_at: '2024-09-12T13:10:00Z' },
+                        { id: 8, name: 'Kiran Reddy', email: 'kiran@email.com', phone: '+91-9876543217', source: 'google', relationship_health_score: null, amount_paid: null, created_at: '2024-09-15T17:25:00Z' },
+                        { id: 9, name: 'Manoj Yadav', email: 'manoj@email.com', phone: '+91-9876543218', source: 'organic', relationship_health_score: null, amount_paid: null, created_at: '2024-09-18T12:40:00Z' },
+                        { id: 10, name: 'Sandeep Mishra', email: 'sandeep@email.com', phone: '+91-9876543219', source: 'instagram', relationship_health_score: null, amount_paid: null, created_at: '2024-09-20T15:55:00Z' }
+                    ],
+                    assessments: [
+                        { id: 1, name: 'Rajesh Kumar', email: 'rajesh@email.com', communication_score: 8, trust_score: 9, emotional_connection_score: 8, relationship_health_score: 85, completed_at: '2024-08-16T10:30:00Z' },
+                        { id: 2, name: 'Arjun Singh', email: 'arjun@email.com', communication_score: 7, trust_score: 7, emotional_connection_score: 8, relationship_health_score: 72, completed_at: '2024-08-21T14:20:00Z' },
+                        { id: 3, name: 'Deepak Sharma', email: 'deepak@email.com', communication_score: 8, trust_score: 7, emotional_connection_score: 8, relationship_health_score: 78, completed_at: '2024-08-26T09:15:00Z' },
+                        { id: 4, name: 'Vikram Patel', email: 'vikram@email.com', communication_score: 9, trust_score: 9, emotional_connection_score: 10, relationship_health_score: 91, completed_at: '2024-09-02T16:45:00Z' },
+                        { id: 5, name: 'Suresh Gupta', email: 'suresh@email.com', communication_score: 6, trust_score: 7, emotional_connection_score: 7, relationship_health_score: 69, completed_at: '2024-09-06T11:30:00Z' }
+                    ],
+                    purchases: [
+                        { id: 1, name: 'Rajesh Kumar', email: 'rajesh@email.com', product_type: 'Father-Son Bond Building', amount_paid: 999.00, has_community_addon: true, payment_id: 'pay_rajesh123', payment_status: 'completed', purchased_at: '2024-08-17T10:30:00Z' },
+                        { id: 2, name: 'Arjun Singh', email: 'arjun@email.com', product_type: 'Father-Son Bond Building', amount_paid: 999.00, has_community_addon: false, payment_id: 'pay_arjun456', payment_status: 'completed', purchased_at: '2024-08-22T14:20:00Z' },
+                        { id: 3, name: 'Deepak Sharma', email: 'deepak@email.com', product_type: 'Father-Son Bond Building', amount_paid: 999.00, has_community_addon: true, payment_id: 'pay_deepak789', payment_status: 'completed', purchased_at: '2024-08-27T09:15:00Z' },
+                        { id: 4, name: 'Vikram Patel', email: 'vikram@email.com', product_type: 'Father-Son Bond Building', amount_paid: 999.00, has_community_addon: false, payment_id: 'pay_vikram012', payment_status: 'completed', purchased_at: '2024-09-03T16:45:00Z' },
+                        { id: 5, name: 'Suresh Gupta', email: 'suresh@email.com', product_type: 'Father-Son Bond Building', amount_paid: 999.00, has_community_addon: true, payment_id: 'pay_suresh345', payment_status: 'completed', purchased_at: '2024-09-07T11:30:00Z' }
+                    ]
+                };
+                
+                console.log('Data loaded successfully:', window.dashboardData);
+                updateDashboard();
+                
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                document.getElementById('loading').innerHTML = '<div class="text-center py-12"><i class="fas fa-exclamation-triangle text-4xl text-red-600 mb-4"></i><p class="text-gray-600">Failed to load dashboard data</p><button onclick="refreshData()" class="mt-4 bg-orange-600 text-white px-4 py-2 rounded-lg">Try Again</button></div>';
+            }
+        }
+
+        // Update dashboard with loaded data
+        function updateDashboard() {
+            console.log('Updating dashboard...');
+            const { analytics, users, assessments, purchases } = window.dashboardData;
+            
+            // Update stats
+            document.getElementById('stat-users').textContent = analytics.totals.users;
+            document.getElementById('stat-users-recent').textContent = analytics.recent_30_days.new_users;
+            document.getElementById('stat-assessments').textContent = analytics.totals.assessments;
+            document.getElementById('stat-assessments-recent').textContent = analytics.recent_30_days.assessments;
+            document.getElementById('stat-purchases').textContent = analytics.totals.purchases;
+            document.getElementById('stat-purchases-recent').textContent = analytics.recent_30_days.purchases;
+            document.getElementById('stat-revenue').textContent = formatCurrency(analytics.totals.revenue);
+            
+            // Update top pages
+            const topPagesHtml = analytics.top_pages.map(page => `
+                <div class="flex justify-between items-center py-2">
+                    <span class="text-gray-800">${page.page_url}</span>
+                    <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">
+                        ${page.views} views
+                    </span>
+                </div>
+            `).join('');
+            document.getElementById('top-pages').innerHTML = topPagesHtml || '<p class="text-gray-500">No page views yet</p>';
+            
+            // Update users table
+            const usersHtml = users.map(user => `
+                <tr>
+                    <td class="px-4 py-2 text-sm font-medium text-gray-900">${user.name || 'N/A'}</td>
+                    <td class="px-4 py-2 text-sm text-gray-600">${user.email}</td>
+                    <td class="px-4 py-2 text-sm text-gray-600">${user.phone || 'N/A'}</td>
+                    <td class="px-4 py-2 text-sm">
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">${user.source}</span>
+                    </td>
+                    <td class="px-4 py-2 text-sm ${user.relationship_health_score ? 'font-bold text-green-600' : 'text-gray-400'}">
+                        ${user.relationship_health_score || 'No assessment'}
+                    </td>
+                    <td class="px-4 py-2 text-sm ${user.amount_paid ? 'font-bold text-purple-600' : 'text-gray-400'}">
+                        ${user.amount_paid ? formatCurrency(user.amount_paid) : 'No purchase'}
+                    </td>
+                    <td class="px-4 py-2 text-sm text-gray-600">${formatDate(user.created_at)}</td>
+                </tr>
+            `).join('');
+            document.getElementById('users-table').innerHTML = usersHtml || '<tr><td colspan="7" class="text-center py-4 text-gray-500">No users yet</td></tr>';
+            
+            // Update assessments table
+            const assessmentsHtml = assessments.map(assessment => `
+                <tr>
+                    <td class="px-4 py-2 text-sm font-medium text-gray-900">${assessment.name}</td>
+                    <td class="px-4 py-2 text-sm text-gray-600">${assessment.email}</td>
+                    <td class="px-4 py-2 text-sm font-bold text-green-600">${assessment.relationship_health_score}</td>
+                    <td class="px-4 py-2 text-sm text-gray-600">${assessment.communication_score || 'N/A'}</td>
+                    <td class="px-4 py-2 text-sm text-gray-600">${assessment.trust_score || 'N/A'}</td>
+                    <td class="px-4 py-2 text-sm text-gray-600">${assessment.emotional_connection_score || 'N/A'}</td>
+                    <td class="px-4 py-2 text-sm text-gray-600">${formatDate(assessment.completed_at)}</td>
+                </tr>
+            `).join('');
+            document.getElementById('assessments-table').innerHTML = assessmentsHtml || '<tr><td colspan="7" class="text-center py-4 text-gray-500">No assessments yet</td></tr>';
+            
+            // Update purchases table
+            const purchasesHtml = purchases.map(purchase => `
+                <tr>
+                    <td class="px-4 py-2 text-sm font-medium text-gray-900">${purchase.name}</td>
+                    <td class="px-4 py-2 text-sm text-gray-600">${purchase.email}</td>
+                    <td class="px-4 py-2 text-sm text-gray-600">${purchase.product_type}</td>
+                    <td class="px-4 py-2 text-sm font-bold text-purple-600">${formatCurrency(purchase.amount_paid)}</td>
+                    <td class="px-4 py-2 text-sm">
+                        <span class="${purchase.has_community_addon ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'} px-2 py-1 rounded text-xs">
+                            ${purchase.has_community_addon ? 'Yes' : 'No'}
+                        </span>
+                    </td>
+                    <td class="px-4 py-2 text-sm text-gray-600 font-mono">${purchase.payment_id || 'N/A'}</td>
+                    <td class="px-4 py-2 text-sm">
+                        <span class="${purchase.payment_status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} px-2 py-1 rounded text-xs">
+                            ${purchase.payment_status}
+                        </span>
+                    </td>
+                    <td class="px-4 py-2 text-sm text-gray-600">${formatDate(purchase.purchased_at)}</td>
+                </tr>
+            `).join('');
+            document.getElementById('purchases-table').innerHTML = purchasesHtml || '<tr><td colspan="8" class="text-center py-4 text-gray-500">No purchases yet</td></tr>';
+            
+            // Hide loading and show content
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('dashboard-content').classList.remove('hidden');
+        }
+
+        // Refresh data
+        function refreshData() {
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('dashboard-content').classList.add('hidden');
+            loadDashboardData();
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardData();
+        });
+    </script>
+</body>
+</html>
